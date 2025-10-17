@@ -1,0 +1,68 @@
+@media screen and (max-width: "960px") {
+  .main-content {
+    display: block !important;
+  }
+
+  .days-row-container {
+    display: block !important;
+    width: 100%;
+  }
+
+  .day {
+    min-height: 600px;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .tile {
+    height: auto;
+
+    &:nth-child(5) {
+      border-right: 0;
+    }
+  }
+
+  .asNavForClass {
+    .day-number {
+      font-size: 0.9rem !important;
+    }
+
+    .day-text {
+      font-size: 0.5rem !important;
+    }
+  }
+
+  .tiles-container {
+    .tile {
+      flex-basis: 20%;
+      width: 20%;
+
+      &:last-child {
+        border-right-width: 1px;
+        border-right-style: groove;
+      }
+    }
+  }
+
+  .days-row-container {
+    height: auto;
+  }
+
+  .MuiDrawer-paper,
+  .MuiDrawer-docked {
+    width: 170px !important;
+  }
+
+  .main-content.open {
+    margin-left: 170px !important;
+  }
+
+  header.open {
+    margin-left: 170px !important;
+    width: calc(100% - 170px) !important;
+  }
+}

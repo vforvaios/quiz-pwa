@@ -1,0 +1,312 @@
+@use "./colors.scss" as *;
+
+.MuiSkeleton-root {
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.draggable-chip {
+  &.MuiChip-root {
+    font-size: 0.5rem;
+    cursor: move;
+    margin-right: 6px;
+    margin-bottom: 6px;
+
+    &.disabled {
+      opacity: 0.5 !important;
+      cursor: default;
+      border: 1px dotted $gray;
+    }
+
+    & .MuiChip-label > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        padding-right: 2px;
+      }
+    }
+    svg {
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    &.isDriver {
+      background-color: $light-purple;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.plain {
+      cursor: pointer;
+      background: none;
+      border-style: dotted;
+      border-width: 1px;
+      border-color: $gray;
+    }
+  }
+}
+
+.draggable-chips-title {
+  &.MuiTypography-root {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    padding: 4px 8px;
+    font-weight: 600;
+    background: $white;
+    color: $black;
+    border-bottom: 1px solid $gray;
+  }
+}
+
+.leftsidebar-scrollable {
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+.MuiDrawer-paper {
+  box-shadow: 10px 0px 40px -30px $black !important;
+}
+
+.car-text {
+  &.MuiTypography-root {
+    color: $black;
+    padding: 0 2px;
+    font-weight: 900;
+    text-align: center;
+    font-size: 0.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+#transition-popper {
+  button {
+    padding: 12px;
+    line-height: 1.5;
+    border: 0 none !important;
+    outline: 0 !important;
+    transition: all 0.2s ease-in-out;
+    background-color: $red;
+    color: $white;
+    margin-top: 6px;
+
+    &.dnh {
+      background-color: $yellow;
+      color: $black;
+    }
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      border: 0 none !important;
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  .MuiBox-root {
+    padding: 12px;
+    border: 0 none;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 1px 10px -4px $black;
+
+    &.removal-info {
+      box-shadow: none;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.removable {
+  cursor: pointer;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  flex-basis: 50%;
+
+  li {
+    text-align: center;
+    line-height: 1;
+    padding: 2px;
+  }
+
+  p {
+    border-radius: 6px;
+    font-size: 0.35rem;
+    margin: 0;
+    padding: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.drivers-list {
+    li p {
+      background: $light-purple;
+      color: $black;
+    }
+
+    &.absences {
+      flex-basis: 100%;
+      height: 100%;
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+
+      li {
+        display: table-cell;
+        padding: 2px;
+        p {
+          background: $red;
+
+          button {
+            color: $white;
+          }
+        }
+      }
+
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  &.regions-list {
+    li p {
+      color: $black;
+
+      &.not-done {
+        position: relative;
+        padding-right: 8px;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+.draggable-container-withsearch {
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.tiles-container {
+  border-bottom: 1px solid $dark-gray;
+  flex-wrap: wrap;
+}
+
+.tile {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: $dark-gray;
+  height: 100%;
+
+  &:last-child {
+    border: 0 none;
+    .list li {
+      border-right: 0 none;
+    }
+  }
+}
+
+.droppable-container {
+  &.isActive {
+    background: $light-green;
+  }
+
+  &.isDroppable {
+    background: $lighter-green;
+  }
+
+  .loader-container {
+    display: none;
+  }
+
+  &.removing {
+    position: relative;
+
+    .loader-container {
+      display: block;
+      position: absolute;
+      top: 0;
+      background: rgba(255, 255, 255, 0.7);
+
+      .loader {
+        width: 16px;
+      }
+    }
+  }
+}
+
+.container-with-dragged-items {
+  height: 100%;
+}
+
+.day-text {
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.day-number {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.weekly {
+  background-color: $weekly !important;
+}
+
+.biweekly {
+  background-color: $biweekly !important;
+}
+
+.otj {
+  background-color: $otj !important;
+}
+
+.public {
+  background-color: $public !important;
+}
+
+.colorIndicator {
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+
+  + span {
+    font-size: 0.7rem;
+  }
+}
+
+.days-row-container {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
