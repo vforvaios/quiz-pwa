@@ -1,4 +1,5 @@
 import loginReducer from "@/models/reducers/loginReducer";
+import categoriesReducer from "@/models/reducers/categoriesReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
@@ -13,6 +14,7 @@ const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
     loginReducer,
+    categoriesReducer,
   })
 );
 
