@@ -1,7 +1,9 @@
-import { Home } from "./components/Home";
+import Home from "./components/Home";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
+import Game from "./components/Game";
+import Results from "./components/Results";
 
 const App = () => {
   return (
@@ -11,21 +13,9 @@ const App = () => {
           {/* 🔸 Public pages (Header/Footer) */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/results" element={<Results />} />
           </Route>
-
-          {/* 🔸 Dashboard (χωρίς Header/Footer)
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute isAllowed={userToken}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="templates" element={<Templates />} />
-            <Route path="profile" element={<Profile />} />
-          </Route> */}
         </Routes>
       </Router>
     </HelmetProvider>
