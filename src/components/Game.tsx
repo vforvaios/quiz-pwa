@@ -51,7 +51,7 @@ export default function Game() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 flex flex-col items-center justify-center px-6 py-10 text-white">
+    <div className="min-h-screen bg-[#c6371a] flex flex-col items-center justify-center px-6 py-10 text-white">
       {/* Progress Bar */}
       <div className="w-full max-w-2xl h-3 bg-white/20 rounded-full mb-8">
         <div
@@ -60,7 +60,7 @@ export default function Game() {
         ></div>
       </div>
 
-      <div className="relative pb-8 max-w-2xl">
+      <div className="relative pb-8 max-w-2xl w-full">
         {/* Question Card */}
         <motion.div
           key={q.question}

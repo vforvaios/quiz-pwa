@@ -9,7 +9,7 @@ export default function Results() {
   const total = state?.total || 10;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-500 via-purple-700 to-indigo-600 px-6 py-10 relative text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[#c6371a] px-6 py-10 relative text-white">
       {/* Confetti */}
       <Confetti width={window.innerWidth} height={window.innerHeight} />
 
