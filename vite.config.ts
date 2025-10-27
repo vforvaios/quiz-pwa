@@ -32,8 +32,8 @@ export default defineConfig({
         navigateFallback: "index.html",
       },
       manifest: {
-        name: "Kipourgies",
-        short_name: "Kipourgies",
+        name: "QuizFriends",
+        short_name: "QuizFriends",
         screenshots: [
           {
             src: "/favicon-512x512.png",
@@ -62,10 +62,10 @@ export default defineConfig({
             type: "image/png",
           },
         ],
-        theme_color: "#171717",
-        background_color: "#f0e7db",
+        theme_color: "#c6371a",
+        background_color: "#fff",
         display: "standalone",
-        description: "Thodoris Pasxalidis Company",
+        description: "QuizFriends",
         scope: "/",
         start_url: "/",
         orientation: "portrait",
