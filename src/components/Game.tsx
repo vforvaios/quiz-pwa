@@ -51,9 +51,9 @@ export default function Game() {
   }
 
   return (
-    <div className="min-h-screen bg-[#c6371a] flex flex-col items-center justify-center px-6 py-10 text-white">
+    <div className="min-h-screen bg-whitecolor flex flex-col items-center justify-center px-6 py-10 text-white">
       {/* Progress Bar */}
-      <div className="w-full max-w-2xl h-3 bg-white/20 rounded-full mb-8">
+      <div className="w-full max-w-2xl h-3 bg-lightgreycolor rounded-full mb-8">
         <div
           className="h-3 bg-yellow-400 rounded-full transition-all"
           style={{ width: `${((current + 1) / questions.length) * 100}%` }}
@@ -68,26 +68,27 @@ export default function Game() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="bg-white/20 backdrop-blur-md p-6 rounded-2xl shadow-xl w-full text-center"
+          className="bg-whitecolor backdrop-blur-md p-6 rounded-2xl shadow-xl w-full text-center"
         >
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className="text-4xl text-redcolor font-bold mb-5">
             Question {current + 1} / {questions.length}
           </h2>
           <p
-            className="text-lg mb-6"
+            className="text-3xl text-redcolor mb-7"
             dangerouslySetInnerHTML={{ __html: q.question }}
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             {answers.map((a) => {
-              const base = "p-4 rounded-xl border font-semibold transition-all";
+              const base =
+                "p-4 rounded-xl border font-semibold text-xl text-blackcolor transition-all";
               const color = selected
                 ? a === q.correct_answer
-                  ? "bg-green-500 text-white border-green-600"
+                  ? "bg-greencolor text-blackcolor border-greencolor"
                   : a === selected
-                    ? "bg-red-500 text-white border-red-600"
-                    : "bg-white/30 border-white/50 text-white"
-                : "bg-white/10 border-white/30 hover:bg-white/20 text-white";
+                    ? "bg-redcolor text-whitecolor border-redcolor"
+                    : "bg-lightgreycolor border-whitecolor text-blackcolor"
+                : "bg-lightgreycolor border-whitecolor hover:bg-greycolor text-blackcolor";
 
               return (
                 <motion.button
@@ -107,7 +108,7 @@ export default function Game() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 text-xl font-bold absolute left-[0] right-[0] text-center"
+            className={`${selected === q.correct_answer ? "text-greencolor" : "text-redcolor"} mt-6 text-xl font-bold absolute left-[0] right-[0] text-center`}
             style={{ transform: "translateX(-50%)" }}
           >
             {selected === q.correct_answer ? "✅ Correct!" : "❌ Wrong!"}

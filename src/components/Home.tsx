@@ -28,14 +28,14 @@ export default function Home() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="grid grid-cols-1 gap-3 max-w-4xl w-full"
+        className="flex flex-col gap-3 max-w-[700px] w-full"
       >
         {categories.map((cat: any) => {
           return (
             <motion.button
               key={cat.id}
               whileHover={{ scale: 1.05, rotate: 0 }}
-              className="group text-[#000] bg-[#fff] backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-white/40 shadow-lg transition-all flex flex-col items-center justify-center text-center space-y-3"
+              className="group text-blackcolor min-h-[100px] bg-lightgreycolor backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-white/40  transition-all flex flex-col items-center justify-center text-center space-y-3"
               onClick={() => {
                 dispatch(setCategory(cat.id));
                 navigate("/game");

@@ -8,6 +8,7 @@ export default {
         redcolor: "var(--red-color)",
         whitecolor: "var(--white-color)",
         lightgreycolor: "var(--light-grey-color)",
+        greycolor: "var(--grey-color)",
         darkgreycolor: "var(--dark-grey-color)",
         greencolor: "var(--green-color)",
       },
