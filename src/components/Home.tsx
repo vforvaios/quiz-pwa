@@ -16,7 +16,7 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-[#c6371a] flex flex-col items-center justify-center px-6 py-10 text-white">
+    <div className="min-h-screen bg-redcolor flex flex-col items-center justify-center px-6 py-10 text-white">
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
