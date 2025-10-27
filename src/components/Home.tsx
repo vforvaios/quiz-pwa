@@ -16,11 +16,11 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-redcolor flex flex-col items-center justify-center px-6 py-10 text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 text-white">
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-5xl font-extrabold mb-10 tracking-tight text-center"
+        className="text-4xl md:text-5xl text-redcolor font-extrabold mb-10 tracking-tight text-center"
       >
         🎯 Choose Your Quiz Category
       </motion.h1>
@@ -41,7 +41,9 @@ export default function Home() {
                 navigate("/game");
               }}
             >
-              <span className="text-lg font-semibold">{cat.name}</span>
+              <span className="text-lg font-semibold text-blackcolor">
+                {cat.name}
+              </span>
             </motion.button>
           );
         })}
@@ -50,7 +52,7 @@ export default function Home() {
       <motion.p
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-12 text-white/80 text-sm"
+        className="mt-12 text-redcolor text-sm"
       >
         Tip: Invite friends and play together for more fun! 🎉
       </motion.p>
