@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/triviaAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategories, setCategory } from "@/models/actions/categoriesActions";
+import {
+  setCategories,
+  setCategory,
+  setDifficulty,
+} from "@/models/actions/categoriesActions";
 import { allCategories } from "@/models/selectors/categoriesSelectors";
 import { motion } from "framer-motion";
 import Modal from "./common/Modal";
@@ -14,32 +18,60 @@ export default function Categories() {
 
   const [open, setOpen] = useState<boolean>(false);
 
+  const handleDifficulty = (difficulty: string) => {
+    dispatch(setDifficulty(difficulty));
+    navigate("/game");
+  };
+
   useEffect(() => {
     getCategories().then((res) => dispatch(setCategories(res)));
   }, [dispatch]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 text-white">
-      <button
-        onClick={() => setOpen(true)}
-        className="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-      >
-        Open Modal
-      </button>
-
       <Modal open={open} onClose={() => setOpen(false)}>
-        <h2 className="text-xl font-semibold mb-3">Springy Modal 🪩</h2>
-        <p className="text-gray-600 mb-4">
-          Click outside or press <kbd>ESC</kbd> to close. The background blur
-          appears instantly — and the popup has a spring animation!
+        <h2 className="text-blackcolor text-2xl font-semibold mb-3 tracking-tight">
+          Difficulty Selection
+        </h2>
+        <p className="text-darkgreycolor mb-6 text-sm uppercase font-medium tracking-wide">
+          Please select a difficulty mode for your game
         </p>
-        <button
-          onClick={() => setOpen(false)}
-          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-        >
-          Close
-        </button>
+
+        <div className="flex gap-3 justify-center mb-6">
+          <button
+            className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
+                 bg-greencolor hover:brightness-110 active:scale-95 shadow"
+            onClick={() => handleDifficulty("easy")}
+          >
+            EASY
+          </button>
+          <button
+            className="px-5 py-2.5 rounded-lg font-semibold text-blackcolor transition 
+                 bg-greycolor hover:bg-darkgreycolor active:scale-95 shadow"
+            onClick={() => handleDifficulty("medium")}
+          >
+            MEDIUM
+          </button>
+          <button
+            className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
+                 bg-redcolor hover:brightness-110 active:scale-95 shadow"
+            onClick={() => handleDifficulty("hard")}
+          >
+            HARD
+          </button>
+        </div>
+
+        <div className="flex justify-end">
+          <button
+            onClick={() => setOpen(false)}
+            className="px-4 py-2 rounded-lg font-medium text-blackcolor bg-lightgreycolor 
+                 hover:bg-greycolor active:scale-95 transition"
+          >
+            Close
+          </button>
+        </div>
       </Modal>
+
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -61,7 +93,8 @@ export default function Categories() {
               className="group text-blackcolor min-h-[100px] bg-lightgreycolor backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-white/40  transition-all flex flex-col items-center justify-center text-center space-y-3"
               onClick={() => {
                 dispatch(setCategory(cat.id));
-                navigate("/game");
+                setOpen(true);
+                // navigate("/game");
               }}
             >
               <span className="text-lg font-semibold text-blackcolor">

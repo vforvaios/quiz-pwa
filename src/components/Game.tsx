@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { getQuestions } from "../services/triviaAPI";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectedCategory } from "@/models/selectors/categoriesSelectors";
+import {
+  selectedCategory,
+  selectedDifficulty,
+} from "@/models/selectors/categoriesSelectors";
 import { motion } from "framer-motion";
 
 export default function Game() {
   const category = useSelector(selectedCategory);
+  const difficulty = useSelector(selectedDifficulty);
   const [questions, setQuestions] = useState<any[]>([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -14,7 +18,7 @@ export default function Game() {
   const navigate = useNavigate();
 
   const fetchQuestion = async () => {
-    const questions = await getQuestions(category, 5);
+    const questions = await getQuestions(category, difficulty, 5);
     setQuestions(questions);
   };
 

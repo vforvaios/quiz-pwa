@@ -1,7 +1,14 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Modal({ open, onClose, children }: any) {
+interface IModalProps {
+  open: boolean;
+  children?: React.ReactNode;
+  message?: string;
+  onClose: () => void;
+}
+
+export default function Modal({ open, onClose, children }: IModalProps) {
   // 🧠 Close on ESC key
   useEffect(() => {
     const handleEsc = (e: any) => e.key === "Escape" && onClose();
@@ -13,7 +20,7 @@ export default function Modal({ open, onClose, children }: any) {
     <AnimatePresence>
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
           // Clicking outside closes modal
           onClick={onClose}
         >
@@ -37,7 +44,8 @@ export default function Modal({ open, onClose, children }: any) {
               transition: { duration: 0.15 },
             }}
             onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-            className="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-6 z-10"
+            className="relative z-10 w-full max-w-md rounded-2xl bg-white shadow-2xl 
+                       border border-white/30 backdrop-blur-xl p-8"
           >
             {/* ❌ Close button */}
             <button
