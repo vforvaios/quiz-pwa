@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { getQuestions } from "../services/triviaAPI";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectedCategory,
   selectedDifficulty,
 } from "@/models/selectors/categoriesSelectors";
 import { motion } from "framer-motion";
+import { setLoading } from "@/models/actions/loaderAction";
 
 export default function Game() {
   const category = useSelector(selectedCategory);
@@ -16,10 +17,13 @@ export default function Game() {
   const [selected, setSelected] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetchQuestion = async () => {
+    dispatch(setLoading(true));
     const questions = await getQuestions(category, difficulty, 5);
     setQuestions(questions);
+    dispatch(setLoading(false));
   };
 
   useEffect(() => {

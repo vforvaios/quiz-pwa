@@ -10,6 +10,7 @@ import {
 import { allCategories } from "@/models/selectors/categoriesSelectors";
 import { motion } from "framer-motion";
 import Modal from "./common/Modal";
+import { setLoading } from "@/models/actions/loaderAction";
 
 export default function Categories() {
   const dispatch = useDispatch();
@@ -24,8 +25,12 @@ export default function Categories() {
   };
 
   useEffect(() => {
-    getCategories().then((res) => dispatch(setCategories(res)));
-  }, [dispatch]);
+    dispatch(setLoading(true));
+    getCategories().then((res) => {
+      dispatch(setCategories(res));
+      dispatch(setLoading(false));
+    });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 text-white">

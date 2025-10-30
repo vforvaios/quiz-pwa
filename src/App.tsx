@@ -6,10 +6,15 @@ import Results from "./components/Results";
 import Categories from "./components/Categories";
 import Home from "./components/Home";
 import HomeLayout from "./layouts/HomeLayout";
+import Loader from "./components/common/Loader";
+import { useSelector } from "react-redux";
+import { isLoading } from "./models/selectors/loaderSelectors";
 
 const App = () => {
+  const loading = useSelector(isLoading);
   return (
     <HelmetProvider>
+      <Loader show={loading} />
       <Router>
         <Routes>
           {/* 🔸 Public pages (Header/Footer) */}
