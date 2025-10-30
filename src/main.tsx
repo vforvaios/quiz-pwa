@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import "./styles/colors.scss";
+import "./styles/modal.scss";
 import "@/fontello/css/fontello.css";
 import "./tailwind.css";
 
