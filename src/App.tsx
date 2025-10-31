@@ -9,6 +9,7 @@ import HomeLayout from "./layouts/HomeLayout";
 import Loader from "./components/common/Loader";
 import { useSelector } from "react-redux";
 import { isLoading } from "./models/selectors/loaderSelectors";
+import Login from "./components/Login";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -25,6 +26,7 @@ const App = () => {
           </Route>
           <Route element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
           </Route>
         </Routes>
       </Router>

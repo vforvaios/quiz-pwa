@@ -26,17 +26,29 @@ export default function Home() {
         Test your knowledge, challenge your friends, and see who’s the ultimate
         quiz master!
       </motion.p>
-
-      {/* Start Button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        onClick={() => navigate("/categories")}
-        className="mt-10 bg-white text-redcolor font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:bg-blackcolor hover:text-white transition-all duration-300"
+      {/* Buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
       >
-        Start Quiz
-      </motion.button>
+        {/* Start Quiz Button */}
+        <button
+          onClick={() => navigate("/categories")}
+          className="bg-white text-redcolor font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:bg-blackcolor hover:text-white transition-all duration-300"
+        >
+          Start Quiz
+        </button>
+
+        {/* Login Button */}
+        <button
+          onClick={() => navigate("/login")}
+          className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+        >
+          Login
+        </button>
+      </motion.div>
 
       {/* Footer Tip */}
       <motion.p
