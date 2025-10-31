@@ -10,6 +10,7 @@ import Loader from "./components/common/Loader";
 import { useSelector } from "react-redux";
 import { isLoading } from "./models/selectors/loaderSelectors";
 import Login from "./components/Login";
+import LeaderBoard from "./components/LeaderBoard";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/categories" element={<Categories />} />
             <Route path="/game" element={<Game />} />
             <Route path="/results" element={<Results />} />
+            <Route path="/leaderboard" element={<LeaderBoard />} />
           </Route>
           <Route element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
