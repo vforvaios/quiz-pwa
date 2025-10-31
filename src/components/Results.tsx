@@ -42,7 +42,7 @@ export default function Results() {
           </strong>
         </motion.p>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-4 flex-col md:flex-row">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
