@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
+import FacebookShareButton from "./common/FacebookShareButton";
 
 export default function Results() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function Results() {
   const score = state?.score || 0;
   const total = state?.total || 10;
 
+  const shareUrl = window.location.origin;
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#c6371a] px-6 py-10 relative text-white">
       {/* Confetti */}
@@ -58,6 +60,11 @@ export default function Results() {
           >
             Home
           </motion.button>
+          <FacebookShareButton
+            shareUrl={shareUrl}
+            score={score}
+            total={total}
+          />
         </div>
       </motion.div>
     </div>
