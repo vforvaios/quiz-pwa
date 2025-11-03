@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import PlayButton from "./common/PlayButton";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -7,6 +8,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-redcolor to-blackcolor flex flex-col items-center justify-center text-white px-6 text-center">
       {/* Hero Title */}
+
       <motion.h1
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -26,6 +28,7 @@ export default function Home() {
         Test your knowledge, challenge your friends, and see who’s the ultimate
         quiz master!
       </motion.p>
+
       {/* Buttons */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -33,20 +36,24 @@ export default function Home() {
         transition={{ delay: 0.5, duration: 0.8 }}
         className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
       >
-        {/* Start Quiz Button */}
-        <button
-          onClick={() => navigate("/categories")}
-          className="bg-white text-redcolor font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:bg-blackcolor hover:text-white transition-all duration-300"
-        >
-          Start Quiz
-        </button>
+        {/* Start Quiz */}
 
-        {/* Login Button */}
+        <PlayButton onClick={() => navigate("/categories")} />
+
+        {/* Login */}
         <button
           onClick={() => navigate("/login")}
           className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
           Login
+        </button>
+
+        {/* 🔥 NEW Register Button */}
+        <button
+          onClick={() => navigate("/register")}
+          className="border-2 border-redcolor bg-redcolor text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+        >
+          Register
         </button>
       </motion.div>
 

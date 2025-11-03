@@ -2,25 +2,30 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-type LoginFormData = {
+type RegisterFormData = {
+  name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
-export const Login = () => {
+export const Register = () => {
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>();
+  } = useForm<RegisterFormData>();
 
-  const onSubmit = async (data: LoginFormData) => {
-    console.log("FORM DATA:", data);
-    // TODO: Call login API here
-    navigate("/game");
+  const onSubmit = async (data: RegisterFormData) => {
+    console.log("REGISTER DATA:", data);
+    // TODO: Call backend API to register user
+    navigate("/login");
   };
+
+  const password = watch("password");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center justify-center px-6">
@@ -37,11 +42,30 @@ export const Login = () => {
           transition={{ delay: 0.2 }}
           className="text-3xl font-bold text-center mb-6"
         >
-          Welcome Back 👋
+          Create Account ✨
         </motion.h2>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium mb-1" htmlFor="name">
+              Full Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="John Doe"
+              className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
+              {...register("name", {
+                required: "Name is required",
+              })}
+            />
+            {errors.name && (
+              <p className="text-red-300 text-xs mt-1">{errors.name.message}</p>
+            )}
+          </div>
+
           {/* Email */}
           <div>
             <label className="block text-sm font-medium mb-1" htmlFor="email">
@@ -82,7 +106,10 @@ export const Login = () => {
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("password", {
                 required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters",
+                },
               })}
             />
             {errors.password && (
@@ -91,12 +118,32 @@ export const Login = () => {
               </p>
             )}
           </div>
-          <p
-            onClick={() => navigate("/forgotpassword")}
-            className="text-white/70 text-sm underline cursor-pointer hover:text-white transition"
-          >
-            Forgot Password?
-          </p>
+
+          {/* Confirm Password */}
+          <div>
+            <label
+              className="block text-sm font-medium mb-1"
+              htmlFor="confirmPassword"
+            >
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
+              {...register("confirmPassword", {
+                required: "Please confirm password",
+                validate: (value) =>
+                  value === password || "Passwords do not match",
+              })}
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-300 text-xs mt-1">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
 
           {/* Submit */}
           <button
@@ -104,23 +151,23 @@ export const Login = () => {
             disabled={isSubmitting}
             className="w-full bg-white text-redcolor font-bold py-3 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
           >
-            {isSubmitting ? "Logging in..." : "Log In"}
+            {isSubmitting ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
         {/* Divider */}
         <div className="my-6 text-center text-white/60 text-sm">or</div>
 
-        {/* Back Button */}
+        {/* Login Link Button */}
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
           className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Back to Home
+          Already have an account? Log In
         </button>
       </motion.div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
