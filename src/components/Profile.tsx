@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux"; // or context if you prefer
-// import { currentUserSelector } from "@/models/selectors/authSelectors"; // example
 
 const Profile = () => {
   const navigate = useNavigate();
