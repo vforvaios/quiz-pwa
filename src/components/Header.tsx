@@ -27,7 +27,7 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickAway);
   }, [open]);
   return (
-    <div className="fixed shadow-md bg-whitecolor z-10 p-1 justify-between items-center h-[50px] top-[0px] w-full flex">
+    <div className="fixed shadow-md backdrop-blur-sm z-10 p-1 justify-between items-center h-[50px] top-[0px] w-full flex">
       <div>
         <img
           onClick={() => navigate("/")}

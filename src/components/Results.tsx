@@ -11,7 +11,7 @@ export default function Results() {
 
   const shareUrl = window.location.origin;
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center px-6 py-10 relative text-white">
+    <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-6 py-10 relative text-white">
       {/* Confetti */}
       <Confetti width={window.innerWidth} height={window.innerHeight} />
 
@@ -25,7 +25,7 @@ export default function Results() {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-4xl font-extrabold mb-4"
+          className="text-redcolor text-4xl font-extrabold mb-4"
         >
           🏁 Quiz Finished!
         </motion.h1>
@@ -34,7 +34,7 @@ export default function Results() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-2xl mb-6"
+          className="text-2xl mb-6 text-blackcolor"
         >
           Your Score:{" "}
           <strong>
