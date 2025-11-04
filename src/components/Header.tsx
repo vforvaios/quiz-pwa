@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -72,24 +72,35 @@ const Header = () => {
               ✖
             </button>
 
-            <a href="/" className="text-lg font-bold hover:text-redcolor">
+            <Link
+              to="/"
+              onClick={() => setOpen(false)}
+              className="text-lg font-bold hover:text-redcolor"
+            >
               🏠 Home
-            </a>
-            <a
-              href="/leaderboard"
+            </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              to="/leaderboard"
               className="text-lg font-bold hover:text-redcolor"
             >
               🏆 Leaderboard
-            </a>
-            <a
-              href="/profile"
+            </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              to="/profile"
               className="text-lg font-bold hover:text-redcolor"
             >
               👤 Profile
-            </a>
-            <a href="/logout" className="text-lg font-bold text-redcolor">
+            </Link>
+
+            <Link
+              onClick={() => setOpen(false)}
+              to="/logout"
+              className="text-lg font-bold text-redcolor"
+            >
               🚪 Logout
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

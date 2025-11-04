@@ -13,7 +13,7 @@ export default function Home() {
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-5xl md:text-6xl font-extrabold tracking-tight"
+        className="text-3xl md:text-6xl font-extrabold tracking-tight"
       >
         🎯 Ultimate Quiz Challenge
       </motion.h1>
@@ -23,7 +23,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="text-white/80 text-lg mt-4 max-w-[600px]"
+        className="text-white/80 text-md md:text-lg mt-4 max-w-[600px]"
       >
         Test your knowledge, challenge your friends, and see who’s the ultimate
         quiz master!

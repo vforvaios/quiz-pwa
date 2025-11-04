@@ -76,20 +76,20 @@ export default function Game() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="bg-whitecolor backdrop-blur-md p-6 rounded-2xl shadow-xl w-full text-center"
+          className="bg-whitecolor backdrop-blur-md p-4 rounded-2xl shadow-xl w-full text-center"
         >
-          <h2 className="text-4xl text-redcolor font-bold mb-5">
+          <h2 className="text-3xl md:text-4xl text-redcolor font-bold mb-4">
             Question {current + 1} / {questions.length}
           </h2>
           <p
-            className="text-3xl text-redcolor mb-7"
+            className="text-xl md:text-3xl text-redcolor mb-4"
             dangerouslySetInnerHTML={{ __html: q.question }}
           />
 
           <div className="flex flex-col gap-4">
             {answers.map((a) => {
               const base =
-                "p-4 rounded-xl border font-semibold text-xl text-blackcolor transition-all";
+                "p-4 rounded-xl border font-semibold text-sm md:text-xl text-blackcolor transition-all";
               const color = selected
                 ? a === q.correct_answer
                   ? "bg-greencolor text-blackcolor border-greencolor"
