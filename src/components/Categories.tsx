@@ -33,7 +33,7 @@ export default function Categories() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 text-white">
+    <div className="flex flex-col items-center justify-center px-6 text-white">
       <Modal open={open} onClose={() => setOpen(false)}>
         <h2 className="text-blackcolor text-2xl font-semibold mb-3 tracking-tight">
           Difficulty Selection
@@ -80,7 +80,7 @@ export default function Categories() {
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-5xl text-redcolor font-extrabold mb-10 tracking-tight text-center"
+        className="text-4xl md:text-5xl text-whitecolor font-extrabold mb-10 tracking-tight text-center"
       >
         🎯 Choose Your Quiz Category
       </motion.h1>
@@ -113,7 +113,7 @@ export default function Categories() {
       <motion.p
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-12 text-redcolor text-sm"
+        className="mt-12 text-whitecolor text-sm"
       >
         Tip: Invite friends and play together for more fun! 🎉
       </motion.p>

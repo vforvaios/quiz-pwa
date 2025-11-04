@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center px-6 py-12 text-white">
+    <div className="justify-center flex items-center px-6 text-white">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,21 +33,21 @@ const Profile = () => {
 
         {/* Name */}
         <h2 className="text-3xl font-bold text-center mt-4">{user.name}</h2>
-        <p className="text-white/60 text-center">{user.email}</p>
+        <p className="text-blackcolor/60 text-center">{user.email}</p>
 
         {/* Stats Section */}
         <div className="grid grid-cols-3 gap-4 mt-8 text-center">
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">{user.gamesPlayed}</p>
-            <p className="text-xs text-white/70">Games Played</p>
+            <p className="text-xs text-black/70">Games Played</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">{user.highScore}</p>
-            <p className="text-xs text-white/70">High Score</p>
+            <p className="text-xs text-black/70">High Score</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">#{user.rank}</p>
-            <p className="text-xs text-white/70">Global Rank</p>
+            <p className="text-xs text-black/70">Global Rank</p>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ const Profile = () => {
 
           <button
             onClick={() => navigate("/categories")}
-            className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all"
+            className="w-full border-2 border-white text-darkgreycolor bg-redcolor font-semibold py-3 rounded-xl hover:bg-whitecolor hover:text-blackcolor transition-all"
           >
             Play Again
           </button>

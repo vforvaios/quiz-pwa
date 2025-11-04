@@ -30,7 +30,7 @@ const LeaderBoard = () => {
   )}`;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex flex-col items-center px-6 py-10 text-white">
+    <div className=" flex flex-col items-center px-6 text-white">
       {/* Header */}
       <motion.h1
         initial={{ opacity: 0, y: -40 }}

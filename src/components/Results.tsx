@@ -25,7 +25,7 @@ export default function Results() {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-redcolor text-4xl font-extrabold mb-4"
+          className="text-whitecolor text-4xl font-extrabold mb-4"
         >
           🏁 Quiz Finished!
         </motion.h1>
@@ -34,7 +34,7 @@ export default function Results() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-2xl mb-6 text-blackcolor"
+          className="text-2xl mb-6 text-whitecolor"
         >
           Your Score:{" "}
           <strong>

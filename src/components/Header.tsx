@@ -38,7 +38,7 @@ const Header = () => {
       </div>
       <div>
         <i
-          className="icon-menu text-2xl"
+          className="icon-menu text-2xl text-whitecolor"
           onClick={() => setOpen(!open)}
           style={{ cursor: "pointer" }}
         />

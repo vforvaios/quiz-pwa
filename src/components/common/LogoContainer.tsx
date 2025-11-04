@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const LogoContainer = () => {
   const navigate = useNavigate();
   return (
-    <div className="fixed z-10 right-[0] left-[0] top-[0px]  backdrop-blur-sm">
+    <div className="fixed z-10 right-[0] left-[0] top-[0px] backdrop-blur-sm">
       <img
         onClick={() => navigate("/")}
         src="/logo.png"
