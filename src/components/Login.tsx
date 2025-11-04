@@ -108,6 +108,14 @@ export const Login = () => {
           </button>
         </form>
 
+        {/* Register Link Button */}
+        <button
+          onClick={() => navigate("/register")}
+          className="w-full mt-4 border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
+        >
+          Dont have an account? Register
+        </button>
+
         {/* Divider */}
         <div className="my-6 text-center text-white/60 text-sm">or</div>
 
