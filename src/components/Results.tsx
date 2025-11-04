@@ -11,7 +11,7 @@ export default function Results() {
 
   const shareUrl = window.location.origin;
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#c6371a] px-6 py-10 relative text-white">
+    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center px-6 py-10 relative text-white">
       {/* Confetti */}
       <Confetti width={window.innerWidth} height={window.innerHeight} />
 

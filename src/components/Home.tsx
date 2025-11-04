@@ -6,7 +6,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className=" flex flex-col items-center justify-center text-white px-6 text-center">
+    <div className="min-h-[calc(100vh-130px)] flex flex-col items-center justify-center text-white px-6 text-center">
       {/* Hero Title */}
 
       <motion.h1

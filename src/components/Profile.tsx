@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center justify-center px-6 py-12 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor flex items-center px-6 py-12 text-white">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
