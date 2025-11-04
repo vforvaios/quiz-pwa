@@ -33,6 +33,7 @@ const Header = () => {
           onClick={() => navigate("/")}
           src="/logo.png"
           className="max-w-[40px]"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div>
@@ -49,7 +50,7 @@ const Header = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-10"
+            className="fixed inset-0 bg-black z-10 h-[100vh]"
           />
         )}
       </AnimatePresence>
@@ -62,7 +63,7 @@ const Header = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="fixed top-0 right-0 h-full w-[250px] bg-whitecolor shadow-2xl p-6 flex flex-col gap-4 z-20"
+            className="fixed top-0 right-0 bottom-0 h-[100vh] w-[250px] bg-whitecolor shadow-2xl p-6 flex flex-col gap-4 z-40"
           >
             <button
               className="self-end text-2xl"
