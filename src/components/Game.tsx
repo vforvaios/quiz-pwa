@@ -27,21 +27,15 @@ export default function Game() {
     data: questions,
     isError,
     error,
+    isFetching,
     isLoading,
   } = useQuery({
     queryKey: ["get-questions", category, difficulty],
     queryFn: () => getQuestions(category, difficulty, 5),
-    enabled: true,
+    enabled: !!category && !!difficulty,
     refetchOnWindowFocus: false,
     retry: false,
   });
-
-  useEffect(() => {
-    if (!category) {
-      navigate("/");
-      return;
-    }
-  }, [category, navigate]);
 
   function handleAnswer(answer: string) {
     setSelected(answer);
@@ -74,20 +68,16 @@ export default function Game() {
     };
   }, [queryClient]);
 
-  if (isDirectEntry) {
+  if (isError || isDirectEntry || !category || !difficulty) {
     return <ErrorFallback />;
   }
 
-  if (isLoading) {
-    return <Loader show={isLoading} />;
+  if (isLoading || isFetching) {
+    return <Loader show={true} />;
   }
 
-  if (isError) {
-    return <ErrorFallback />;
-  }
-
-  const q = questions?.[current];
-  const answers = [...q.incorrect_answers, q.correct_answer].sort();
+  const q = questions?.[current] || [];
+  const answers = [...q?.incorrect_answers, q?.correct_answer].sort();
 
   return (
     <div className=" flex flex-col items-center justify-center px-6  text-white">

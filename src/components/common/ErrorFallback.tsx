@@ -20,7 +20,7 @@ export const ErrorFallback = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-3xl md:text-4xl font-extrabold text-redcolor"
+        className="text-3xl md:text-4xl font-extrabold text-whitecolor"
       >
         Oops! Something Went Wrong
       </motion.h1>
@@ -30,7 +30,7 @@ export const ErrorFallback = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-gray-600 text-lg mt-3 max-w-md"
+        className=" text-lg mt-3 max-w-md text-whitecolor"
       >
         Don't worry — it’s not you, it’s us. Try refreshing the page or come
         back later!

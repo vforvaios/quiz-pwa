@@ -17,19 +17,18 @@ import ForgotPassword from "./components/ForgotPassword";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/common/ErrorBoundary";
-import { ErrorFallback } from "./components/common/ErrorFallback";
 
 const App = () => {
   const loading = useSelector(isLoading);
   const queryClient = new QueryClient();
 
   return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
-      <HelmetProvider>
-        <SnackbarProvider />
-        <QueryClientProvider client={queryClient}>
-          <Loader show={loading} />
-          <Router>
+    <HelmetProvider>
+      <SnackbarProvider />
+      <QueryClientProvider client={queryClient}>
+        <Loader show={loading} />
+        <Router>
+          <ErrorBoundary>
             <Routes>
               {/* 🔸 Public pages (Header/Footer) */}
               <Route element={<PublicLayout />}>
@@ -46,10 +45,10 @@ const App = () => {
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
               </Route>
             </Routes>
-          </Router>
-        </QueryClientProvider>
-      </HelmetProvider>
-    </ErrorBoundary>
+          </ErrorBoundary>
+        </Router>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };
 

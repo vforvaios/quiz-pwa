@@ -1,5 +1,5 @@
 export async function getCategories() {
-  const res = await fetch("https://opentdb.com/api_category.php");
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api_category.php`);
   const data = await res.json();
   return data.trivia_categories;
 }
@@ -10,7 +10,7 @@ export async function getQuestions(
   amount = 5
 ) {
   const res = await fetch(
-    `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&category=${categoryId}&type=multiple`
+    `${import.meta.env.VITE_API_URL}/api.php?amount=${amount}&difficulty=${difficulty}&category=${categoryId}&type=multiple`
   );
   const data = await res.json();
   return data.results;
