@@ -16,36 +16,40 @@ import Profile from "./components/Profile";
 import ForgotPassword from "./components/ForgotPassword";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ErrorBoundary from "./components/common/ErrorBoundary";
+import { ErrorFallback } from "./components/common/ErrorFallback";
 
 const App = () => {
   const loading = useSelector(isLoading);
   const queryClient = new QueryClient();
 
   return (
-    <HelmetProvider>
-      <SnackbarProvider />
-      <QueryClientProvider client={queryClient}>
-        <Loader show={loading} />
-        <Router>
-          <Routes>
-            {/* 🔸 Public pages (Header/Footer) */}
-            <Route element={<PublicLayout />}>
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/game" element={<Game />} />
-              <Route path="/results" element={<Results />} />
-              <Route path="/leaderboard" element={<LeaderBoard />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route>
-            <Route element={<HomeLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-            </Route>
-          </Routes>
-        </Router>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <ErrorBoundary fallback={<ErrorFallback />}>
+      <HelmetProvider>
+        <SnackbarProvider />
+        <QueryClientProvider client={queryClient}>
+          <Loader show={loading} />
+          <Router>
+            <Routes>
+              {/* 🔸 Public pages (Header/Footer) */}
+              <Route element={<PublicLayout />}>
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/game" element={<Game />} />
+                <Route path="/results" element={<Results />} />
+                <Route path="/leaderboard" element={<LeaderBoard />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              <Route element={<HomeLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
+              </Route>
+            </Routes>
+          </Router>
+        </QueryClientProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 };
 

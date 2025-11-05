@@ -1,48 +1,47 @@
 import { useEffect, useState } from "react";
 import { getQuestions } from "../services/triviaAPI";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   selectedCategory,
   selectedDifficulty,
 } from "@/models/selectors/categoriesSelectors";
 import { motion } from "framer-motion";
-import { setLoading } from "@/models/actions/loaderAction";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Loader from "./common/Loader";
+import { enqueueSnackbar } from "notistack";
+import { ErrorFallback } from "./common/ErrorFallback";
+import { useNavigationType } from "@/hooks/useNavigationType";
 
 export default function Game() {
+  const queryClient = useQueryClient();
+  const isDirectEntry = useNavigationType();
   const category = useSelector(selectedCategory);
   const difficulty = useSelector(selectedDifficulty);
-  const [questions, setQuestions] = useState<any[]>([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const fetchQuestion = async () => {
-    dispatch(setLoading(true));
-    const questions = await getQuestions(category, difficulty, 5);
-    setQuestions(questions);
-    dispatch(setLoading(false));
-  };
+  const {
+    data: questions,
+    isError,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["get-questions", category, difficulty],
+    queryFn: () => getQuestions(category, difficulty, 5),
+    enabled: true,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   useEffect(() => {
     if (!category) {
       navigate("/");
       return;
     }
-    fetchQuestion();
   }, [category, navigate]);
-
-  if (!questions?.length)
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white text-xl">
-        Loading...
-      </div>
-    );
-
-  const q = questions[current];
-  const answers = [...q.incorrect_answers, q.correct_answer].sort();
 
   function handleAnswer(answer: string) {
     setSelected(answer);
@@ -57,6 +56,38 @@ export default function Game() {
       }
     }, 1500);
   }
+
+  useEffect(() => {
+    if (isError) {
+      enqueueSnackbar(error.toString(), {
+        variant: "error",
+        autoHideDuration: 4000,
+      });
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: ["get-questions"],
+      });
+    };
+  }, [queryClient]);
+
+  if (isDirectEntry) {
+    return <ErrorFallback />;
+  }
+
+  if (isLoading) {
+    return <Loader show={isLoading} />;
+  }
+
+  if (isError) {
+    return <ErrorFallback />;
+  }
+
+  const q = questions?.[current];
+  const answers = [...q.incorrect_answers, q.correct_answer].sort();
 
   return (
     <div className=" flex flex-col items-center justify-center px-6  text-white">
@@ -87,7 +118,7 @@ export default function Game() {
           />
 
           <div className="flex flex-col gap-4">
-            {answers.map((a) => {
+            {answers?.map((a) => {
               const base =
                 "p-4 rounded-xl border font-semibold text-sm md:text-xl text-blackcolor transition-all";
               const color = selected

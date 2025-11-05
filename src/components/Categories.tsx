@@ -33,14 +33,16 @@ export default function Categories() {
     if (isError) {
       enqueueSnackbar(error.toString(), {
         variant: "error",
-        persist: true,
+        autoHideDuration: 4000,
       });
     }
   }, [isError]);
 
   useEffect(() => {
     return () => {
-      queryClient.removeQueries({ queryKey: ["get-categories"] });
+      queryClient.removeQueries({
+        queryKey: ["get-categories"],
+      });
     };
   }, [queryClient]);
 
@@ -115,7 +117,6 @@ export default function Categories() {
               onClick={() => {
                 dispatch(setCategory(cat.id));
                 setOpen(true);
-                // navigate("/game");
               }}
             >
               <span className="text-lg font-semibold text-blackcolor">
