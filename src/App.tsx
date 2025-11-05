@@ -14,30 +14,37 @@ import LeaderBoard from "./components/LeaderBoard";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import ForgotPassword from "./components/ForgotPassword";
+import { SnackbarProvider } from "notistack";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
   const loading = useSelector(isLoading);
+  const queryClient = new QueryClient();
+
   return (
     <HelmetProvider>
-      <Loader show={loading} />
-      <Router>
-        <Routes>
-          {/* 🔸 Public pages (Header/Footer) */}
-          <Route element={<PublicLayout />}>
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/game" element={<Game />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/leaderboard" element={<LeaderBoard />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
-          <Route element={<HomeLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-          </Route>
-        </Routes>
-      </Router>
+      <SnackbarProvider />
+      <QueryClientProvider client={queryClient}>
+        <Loader show={loading} />
+        <Router>
+          <Routes>
+            {/* 🔸 Public pages (Header/Footer) */}
+            <Route element={<PublicLayout />}>
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/game" element={<Game />} />
+              <Route path="/results" element={<Results />} />
+              <Route path="/leaderboard" element={<LeaderBoard />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route element={<HomeLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
+            </Route>
+          </Routes>
+        </Router>
+      </QueryClientProvider>
     </HelmetProvider>
   );
 };

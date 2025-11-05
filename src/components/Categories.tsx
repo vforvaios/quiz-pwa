@@ -1,20 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/triviaAPI";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategories,
-  setCategory,
-  setDifficulty,
-} from "@/models/actions/categoriesActions";
-import { allCategories } from "@/models/selectors/categoriesSelectors";
+import { useDispatch } from "react-redux";
+import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
 import { motion } from "framer-motion";
 import Modal from "./common/Modal";
-import { setLoading } from "@/models/actions/loaderAction";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Loader from "./common/Loader";
+import { enqueueSnackbar } from "notistack";
 
 export default function Categories() {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const categories = useSelector(allCategories);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -24,13 +21,32 @@ export default function Categories() {
     navigate("/game");
   };
 
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["get-categories"],
+    queryFn: () => getCategories(),
+    enabled: true,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
   useEffect(() => {
-    dispatch(setLoading(true));
-    getCategories().then((res) => {
-      dispatch(setCategories(res));
-      dispatch(setLoading(false));
-    });
-  }, []);
+    if (isError) {
+      enqueueSnackbar(error.toString(), {
+        variant: "error",
+        persist: true,
+      });
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({ queryKey: ["get-categories"] });
+    };
+  }, [queryClient]);
+
+  if (isLoading) {
+    return <Loader show={isLoading} />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center px-6 text-white">
@@ -90,7 +106,7 @@ export default function Categories() {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-3 max-w-[700px] w-full"
       >
-        {categories.map((cat: any) => {
+        {data.map((cat: any) => {
           return (
             <motion.button
               key={cat.id}
