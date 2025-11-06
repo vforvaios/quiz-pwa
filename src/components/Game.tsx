@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getQuestions } from "../services/triviaAPI";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectedCategory,
   selectedDifficulty,
@@ -11,8 +11,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "./common/Loader";
 import { enqueueSnackbar } from "notistack";
 import { ErrorFallback } from "./common/ErrorFallback";
+import { useRedirectOnInvalidAccess } from "@/hooks/useNavigateRefresh";
+import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
 
 export default function Game() {
+  useRedirectOnInvalidAccess();
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const category = useSelector(selectedCategory);
   const difficulty = useSelector(selectedDifficulty);
@@ -65,6 +69,19 @@ export default function Game() {
       });
     };
   }, [queryClient]);
+
+  useEffect(() => {
+    const handler = () => {
+      dispatch(setCategory(null));
+      dispatch(setDifficulty(null));
+    };
+
+    window.addEventListener("beforeunload", handler);
+
+    return () => {
+      window.removeEventListener("beforeunload", handler);
+    };
+  }, [dispatch]);
 
   if (isError || !category || !difficulty) {
     return <ErrorFallback />;
