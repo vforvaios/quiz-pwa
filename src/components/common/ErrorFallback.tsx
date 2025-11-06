@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const ErrorFallback = () => {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center px-6">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
       {/* Animated Icon */}
       <motion.div
         initial={{ scale: 0, rotate: -20 }}

@@ -11,11 +11,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "./common/Loader";
 import { enqueueSnackbar } from "notistack";
 import { ErrorFallback } from "./common/ErrorFallback";
-import { useNavigationType } from "@/hooks/useNavigationType";
 
 export default function Game() {
   const queryClient = useQueryClient();
-  const isDirectEntry = useNavigationType();
   const category = useSelector(selectedCategory);
   const difficulty = useSelector(selectedDifficulty);
   const [current, setCurrent] = useState(0);
@@ -68,7 +66,7 @@ export default function Game() {
     };
   }, [queryClient]);
 
-  if (isError || isDirectEntry || !category || !difficulty) {
+  if (isError || !category || !difficulty) {
     return <ErrorFallback />;
   }
 
