@@ -42,7 +42,7 @@ export const Register = () => {
           transition={{ delay: 0.2 }}
           className="text-3xl font-bold text-center mb-6"
         >
-          Create Account ✨
+          Εγγραφή ✨
         </motion.h2>
 
         {/* Form */}
@@ -50,7 +50,7 @@ export const Register = () => {
           {/* Name */}
           <div>
             <label className="block text-sm font-medium mb-1" htmlFor="name">
-              Full Name
+              Όνομα
             </label>
             <input
               id="name"
@@ -58,7 +58,7 @@ export const Register = () => {
               placeholder="John Doe"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("name", {
-                required: "Name is required",
+                required: "Το όνομα είναι απαραίτητο",
               })}
             />
             {errors.name && (
@@ -77,10 +77,10 @@ export const Register = () => {
               placeholder="you@example.com"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("email", {
-                required: "Email is required",
+                required: "Το email είναι απαραίτητο",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email format",
+                  message: "Λάθος email",
                 },
               })}
             />
@@ -97,7 +97,7 @@ export const Register = () => {
               className="block text-sm font-medium mb-1"
               htmlFor="password"
             >
-              Password
+              Κωδικός
             </label>
             <input
               id="password"
@@ -105,10 +105,10 @@ export const Register = () => {
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("password", {
-                required: "Password is required",
+                required: "Ο κωδικός είναι απαραίτητος",
                 minLength: {
                   value: 6,
-                  message: "Minimum 6 characters",
+                  message: "Ελάχιστοι χαρακτήρες 6",
                 },
               })}
             />
@@ -125,7 +125,7 @@ export const Register = () => {
               className="block text-sm font-medium mb-1"
               htmlFor="confirmPassword"
             >
-              Confirm Password
+              Επιβεβαίωση Κωδικού
             </label>
             <input
               id="confirmPassword"
@@ -133,9 +133,9 @@ export const Register = () => {
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("confirmPassword", {
-                required: "Please confirm password",
+                required: "Παρακαλώ επιβεβαιώστε τον κωδικό",
                 validate: (value) =>
-                  value === password || "Passwords do not match",
+                  value === password || "Οι κωδικοί δεν ταιριάζουν",
               })}
             />
             {errors.confirmPassword && (
@@ -151,7 +151,7 @@ export const Register = () => {
             disabled={isSubmitting}
             className="w-full bg-white text-redcolor font-bold py-3 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
           >
-            {isSubmitting ? "Creating account..." : "Sign Up"}
+            {isSubmitting ? "Εγγράφεσαι..." : "Εγγραφή"}
           </button>
         </form>
 
@@ -163,7 +163,7 @@ export const Register = () => {
           onClick={() => navigate("/login")}
           className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Already have an account? Log In
+          Έχεις ήδη λογαριασμό; Σύνδεση
         </button>
       </motion.div>
     </div>

@@ -77,21 +77,21 @@ const Header = () => {
               onClick={() => setOpen(false)}
               className="text-lg font-bold hover:text-redcolor"
             >
-              🏠 Home
+              🏠 Αρχική
             </Link>
             <Link
               onClick={() => setOpen(false)}
               to="/leaderboard"
               className="text-lg font-bold hover:text-redcolor"
             >
-              🏆 Leaderboard
+              🏆 Βαθμολογία
             </Link>
             <Link
               onClick={() => setOpen(false)}
               to="/profile"
               className="text-lg font-bold hover:text-redcolor"
             >
-              👤 Profile
+              👤 Προφίλ
             </Link>
 
             <Link
@@ -99,7 +99,7 @@ const Header = () => {
               to="/logout"
               className="text-lg font-bold text-redcolor"
             >
-              🚪 Logout
+              🚪 Αποσύνδεση
             </Link>
           </motion.div>
         )}

@@ -22,7 +22,7 @@ export const ErrorFallback = () => {
         transition={{ delay: 0.2 }}
         className="text-3xl md:text-4xl font-extrabold text-whitecolor"
       >
-        Oops! Something Went Wrong
+        Oops! Κάτι πήγε λάθος
       </motion.h1>
 
       {/* Subtitle */}
@@ -32,8 +32,7 @@ export const ErrorFallback = () => {
         transition={{ delay: 0.4 }}
         className=" text-lg mt-3 max-w-md text-whitecolor"
       >
-        Don't worry — it’s not you, it’s us. Try refreshing the page or come
-        back later!
+        Μην ανησυχείς - δεν φταις εσύ, αλλά εμείς! Κάνε ανανέωση στην σελίδα!
       </motion.p>
 
       {/* Refresh Button */}
@@ -44,7 +43,7 @@ export const ErrorFallback = () => {
         onClick={() => navigate("/")}
         className="mt-6 bg-redcolor text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-blackcolor transition-all duration-300"
       >
-        Back to Home
+        Αρχική
       </motion.button>
     </div>
   );

@@ -27,7 +27,7 @@ export default function Results() {
           transition={{ delay: 0.2 }}
           className="text-whitecolor text-4xl font-extrabold mb-4"
         >
-          🏁 Quiz Finished!
+          🏁 Τέλος Quiz!
         </motion.h1>
 
         <motion.p
@@ -36,7 +36,7 @@ export default function Results() {
           transition={{ delay: 0.4 }}
           className="text-2xl mb-6 text-whitecolor"
         >
-          Your Score:{" "}
+          Το Σκορ σου:{" "}
           <strong>
             {score} / {total}
           </strong>
@@ -49,7 +49,7 @@ export default function Results() {
             className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
             onClick={() => navigate("/game")}
           >
-            Play Again
+            Παίξε ξανά
           </motion.button>
 
           <motion.button
@@ -58,7 +58,7 @@ export default function Results() {
             className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
             onClick={() => navigate("/")}
           >
-            Home
+            Αρχική
           </motion.button>
           <FacebookShareButton
             shareUrl={shareUrl}

@@ -54,33 +54,33 @@ export default function Categories() {
     <div className="flex flex-col items-center justify-center px-6 text-white">
       <Modal open={open} onClose={() => setOpen(false)}>
         <h2 className="text-blackcolor text-2xl font-semibold mb-3 tracking-tight">
-          Difficulty Selection
+          Επιλογή Δυσκολίας
         </h2>
         <p className="text-darkgreycolor mb-6 text-sm uppercase font-medium tracking-wide">
-          Please select a difficulty mode for your game
+          Παρακαλώ επίλεξε βαθμό δυσκολίας
         </p>
 
         <div className="flex gap-3 justify-center mb-6">
           <button
             className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
                  bg-greencolor hover:brightness-110 active:scale-95 shadow"
-            onClick={() => handleDifficulty("easy")}
+            onClick={() => handleDifficulty("1")}
           >
-            EASY
+            ΕΥΚΟΛΟ
           </button>
           <button
             className="px-5 py-2.5 rounded-lg font-semibold text-blackcolor transition 
                  bg-greycolor hover:bg-darkgreycolor active:scale-95 shadow"
-            onClick={() => handleDifficulty("medium")}
+            onClick={() => handleDifficulty("2")}
           >
-            MEDIUM
+            ΜΕΤΡΙΟ
           </button>
           <button
             className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
                  bg-redcolor hover:brightness-110 active:scale-95 shadow"
-            onClick={() => handleDifficulty("hard")}
+            onClick={() => handleDifficulty("3")}
           >
-            HARD
+            ΔΥΣΚΟΛΟ
           </button>
         </div>
 
@@ -90,7 +90,7 @@ export default function Categories() {
             className="px-4 py-2 rounded-lg font-medium text-blackcolor bg-lightgreycolor 
                  hover:bg-greycolor active:scale-95 transition"
           >
-            Close
+            Κλείσιμο
           </button>
         </div>
       </Modal>
@@ -100,7 +100,7 @@ export default function Categories() {
         animate={{ opacity: 1, y: 0 }}
         className="text-3xl md:text-5xl text-whitecolor font-extrabold mb-10 tracking-tight text-center"
       >
-        🎯 Choose Your Quiz Category
+        🎯 Επιλογή Κατηγορίας
       </motion.h1>
 
       <motion.div
@@ -132,7 +132,7 @@ export default function Categories() {
         animate={{ opacity: 1, y: 0 }}
         className="mt-12 text-whitecolor text-sm"
       >
-        Tip: Invite friends and play together for more fun! 🎉
+        Tip: Κάλεσε τους φίλους σου και παίξτε μαζί! 🎉
       </motion.p>
     </div>
   );

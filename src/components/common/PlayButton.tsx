@@ -15,7 +15,7 @@ const PlayButton = ({ onClick }: { onClick: () => void }) => {
       className="relative bg-white text-redcolor font-bold text-xl px-10 py-5 rounded-2xl shadow-lg 
       hover:bg-redcolor hover:text-white transition-all"
     >
-      🎯 Start Quiz
+      🎯 Παίξε
       {/* Sparkles / Emoji burst */}
       <motion.span
         className="absolute -top-4 -right-4 text-2xl select-none"

@@ -15,7 +15,7 @@ export default function Home() {
         transition={{ duration: 0.8 }}
         className="text-3xl md:text-6xl font-extrabold tracking-tight"
       >
-        🎯 Ultimate Quiz Challenge
+        🎯 Το καλύτερο Quiz ever!
       </motion.h1>
 
       {/* Subtitle */}
@@ -25,8 +25,8 @@ export default function Home() {
         transition={{ delay: 0.3, duration: 0.8 }}
         className="text-white/80 text-md md:text-lg mt-4 max-w-[600px]"
       >
-        Test your knowledge, challenge your friends, and see who’s the ultimate
-        quiz master!
+        Τσέκαρε τις γνώσεις σου, παίξε με φίλους, και δες ποιος είναι ο απόλυτος
+        Quizάς!
       </motion.p>
 
       {/* Buttons */}
@@ -45,7 +45,7 @@ export default function Home() {
           onClick={() => navigate("/login")}
           className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Login
+          Σύνδεση
         </button>
 
         {/* 🔥 NEW Register Button */}
@@ -53,7 +53,7 @@ export default function Home() {
           onClick={() => navigate("/register")}
           className="border-2 border-redcolor bg-redcolor text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Register
+          Εγγραφή
         </button>
       </motion.div>
 
@@ -64,7 +64,7 @@ export default function Home() {
         transition={{ delay: 1 }}
         className="mt-12 text-sm text-white/70"
       >
-        🔥 Tip: Play daily to earn streak bonuses!
+        🔥 Tip: Παίξε καθημερινά και κέρδισε πόντους!
       </motion.p>
     </div>
   );

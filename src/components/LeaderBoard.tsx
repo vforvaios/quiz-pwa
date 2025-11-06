@@ -38,7 +38,7 @@ const LeaderBoard = () => {
         transition={{ duration: 0.6 }}
         className="text-4xl md:text-5xl font-extrabold tracking-tight mb-10 text-center"
       >
-        🏆 Leaderboard
+        🏆 Βαθμολογία
       </motion.h1>
 
       {/* Leaderboard Card */}
@@ -50,9 +50,9 @@ const LeaderBoard = () => {
       >
         {/* Header Row */}
         <div className="grid grid-cols-[0.8fr_2.5fr_1fr] text-sm font-semibold text-white/70 border-b border-white/20 pb-2 mb-4">
-          <span className="text-left">Rank</span>
-          <span className="text-center">Player</span>
-          <span className="text-right">Score</span>
+          <span className="text-left">Θέση</span>
+          <span className="text-center">Παίχτης</span>
+          <span className="text-right">Σκορ</span>
         </div>
 
         {/* Player Rows */}
@@ -132,10 +132,10 @@ const LeaderBoard = () => {
             alt="Your avatar"
             className="w-16 h-16 rounded-full border-2 border-white/40"
           />
-          <h3 className="text-xl font-bold">You</h3>
-          <p className="text-white/80">Rank #{yourRank}</p>
+          <h3 className="text-xl font-bold">Εσύ</h3>
+          <p className="text-white/80">Θέση #{yourRank}</p>
           <p className="text-lg font-semibold text-white">
-            Score: {currentPlayer?.score}
+            Σκορ: {currentPlayer?.score}
           </p>
         </div>
       </motion.div>
@@ -148,7 +148,7 @@ const LeaderBoard = () => {
         onClick={() => navigate("/")}
         className="mt-10 bg-white text-redcolor font-bold px-8 py-3 rounded-2xl hover:bg-redcolor hover:text-white transition-all duration-300"
       >
-        Back to Home
+        Αρχική
       </motion.button>
     </div>
   );

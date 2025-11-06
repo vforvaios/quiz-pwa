@@ -37,7 +37,7 @@ export const Login = () => {
           transition={{ delay: 0.2 }}
           className="text-3xl font-bold text-center mb-6"
         >
-          Welcome Back 👋
+          Καλώς Ήρθες 👋
         </motion.h2>
 
         {/* Form */}
@@ -53,10 +53,10 @@ export const Login = () => {
               placeholder="you@example.com"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("email", {
-                required: "Email is required",
+                required: "Το email είναι απαραίτητο",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email format",
+                  message: "Λάθος email",
                 },
               })}
             />
@@ -73,7 +73,7 @@ export const Login = () => {
               className="block text-sm font-medium mb-1"
               htmlFor="password"
             >
-              Password
+              Κωδικός
             </label>
             <input
               id="password"
@@ -81,8 +81,8 @@ export const Login = () => {
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white"
               {...register("password", {
-                required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
+                required: "Ο κωδικός είναι απαραίτητος",
+                minLength: { value: 6, message: "Ελάχιστοι χαρακτήρες 6" },
               })}
             />
             {errors.password && (
@@ -95,7 +95,7 @@ export const Login = () => {
             onClick={() => navigate("/forgotpassword")}
             className="text-white/70 text-sm underline cursor-pointer hover:text-white transition"
           >
-            Forgot Password?
+            Επαναφορά Κωδικού?
           </p>
 
           {/* Submit */}
@@ -104,7 +104,7 @@ export const Login = () => {
             disabled={isSubmitting}
             className="w-full bg-white text-redcolor font-bold py-3 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
           >
-            {isSubmitting ? "Logging in..." : "Log In"}
+            {isSubmitting ? "Συνδέεσαι..." : "Σύνδεση"}
           </button>
         </form>
 
@@ -113,7 +113,7 @@ export const Login = () => {
           onClick={() => navigate("/register")}
           className="w-full mt-4 border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Dont have an account? Register
+          Δεν έχεις λογαριασμό; Εγγραφή τώρα
         </button>
 
         {/* Divider */}
@@ -124,7 +124,7 @@ export const Login = () => {
           onClick={() => navigate("/")}
           className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
-          Back to Home
+          Αρχική
         </button>
       </motion.div>
     </div>

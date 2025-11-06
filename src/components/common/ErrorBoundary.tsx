@@ -33,16 +33,16 @@ export default class ErrorBoundary extends Component<
         this.props.fallback ?? (
           <div className="min-h-screen bg-gradient-to-br from-blackcolor to-redcolor bg-fixed flex flex-col items-center justify-center text-center px-6">
             <h1 className="text-3xl font-bold text-whitecolor">
-              Something went wrong 😢
+              Κάτι πήγε στραβά 😢
             </h1>
             <p className="text-whitecolor mt-2 max-w-md">
-              An unexpected error occurred. Try refreshing the page.
+              Ένα αναπάντεχο λάθος συνέβη. Ανανέωσε την σελίδα.
             </p>
             <button
               onClick={() => window.location.reload()}
               className="mt-6 px-5 py-3 text-whitecolor rounded-lg bg-blackcolor hover:bg-red-700 transition"
             >
-              Refresh Page
+              Ανανέωση
             </button>
           </div>
         )

@@ -39,15 +39,15 @@ const Profile = () => {
         <div className="grid grid-cols-3 gap-4 mt-8 text-center">
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">{user.gamesPlayed}</p>
-            <p className="text-xs text-black/70">Games Played</p>
+            <p className="text-xs text-black/70">Παιχνίδα</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">{user.highScore}</p>
-            <p className="text-xs text-black/70">High Score</p>
+            <p className="text-xs text-black/70">Ψηλότερο Σκορ</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">#{user.rank}</p>
-            <p className="text-xs text-black/70">Global Rank</p>
+            <p className="text-xs text-black/70">Γενική Θέση</p>
           </div>
         </div>
 
@@ -57,14 +57,14 @@ const Profile = () => {
             onClick={() => navigate("/leaderboard")}
             className="w-full bg-white text-redcolor font-semibold py-3 rounded-xl hover:bg-redcolor hover:text-white transition-all"
           >
-            View Leaderboard
+            Δες την βαθμολογία
           </button>
 
           <button
             onClick={() => navigate("/categories")}
             className="w-full border-2 border-white text-darkgreycolor bg-redcolor font-semibold py-3 rounded-xl hover:bg-whitecolor hover:text-blackcolor transition-all"
           >
-            Play Again
+            Παίξε ξανά
           </button>
 
           <button
@@ -74,7 +74,7 @@ const Profile = () => {
               navigate("/login");
             }}
           >
-            Logout
+            Αποσύνδεση
           </button>
         </div>
       </motion.div>

@@ -115,7 +115,7 @@ export default function Game() {
           className="bg-whitecolor backdrop-blur-md p-4 rounded-2xl shadow-xl w-full text-center"
         >
           <h2 className="text-3xl md:text-4xl text-redcolor font-bold mb-4">
-            Question {current + 1} / {questions.length}
+            Ερώτηση {current + 1} / {questions.length}
           </h2>
           <p
             className="text-xl md:text-3xl text-redcolor mb-4"
@@ -155,7 +155,7 @@ export default function Game() {
             className={`${selected === q.correct_answer ? "text-greencolor" : "text-redcolor"} mt-6 text-xl font-bold absolute left-[0] right-[0] text-center`}
             style={{ transform: "translateX(-50%)" }}
           >
-            {selected === q.correct_answer ? "✅ Correct!" : "❌ Wrong!"}
+            {selected === q.correct_answer ? "✅ Σωστό!" : "❌ Λάθος!"}
           </motion.div>
         )}
       </div>

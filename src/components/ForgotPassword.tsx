@@ -29,11 +29,11 @@ const ForgotPassword = () => {
           transition={{ delay: 0.2 }}
           className="text-3xl font-bold text-center mb-4"
         >
-          Forgot Password 🔐
+          Επαναφορά κωδικού 🔐
         </motion.h2>
 
         <p className="text-white/70 text-sm text-center mb-6">
-          Enter your email address and we’ll send you a reset link.
+          Γράψε το email σου και εμείς θα σου στείλουμε ένα reset link.
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
             type="submit"
             className="w-full bg-white text-redcolor font-bold py-3 rounded-xl hover:bg-redcolor hover:text-white transition-all duration-300"
           >
-            Send Reset Link
+            Αποστολή Συνδέσμου
           </button>
         </form>
 
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
           onClick={() => navigate("/login")}
           className="w-full mt-4 text-white/80 text-sm hover:text-white transition-all"
         >
-          ← Back to Login
+          ← Σύνδεση
         </button>
       </motion.div>
     </div>
