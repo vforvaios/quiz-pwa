@@ -44,11 +44,13 @@ export default function Game() {
     if (answer === q.correct_answer) setScore(score + 1);
 
     setTimeout(() => {
-      if (current + 1 < questions?.length) {
+      if (current + 1 < questions?.results?.length) {
         setCurrent(current + 1);
         setSelected(null);
       } else {
-        navigate("/results", { state: { score, total: questions.length } });
+        navigate("/results", {
+          state: { score, total: questions.results?.length },
+        });
       }
     }, 1500);
   }
@@ -91,7 +93,7 @@ export default function Game() {
     return <Loader show={true} />;
   }
 
-  const q = questions?.[current] || [];
+  const q = questions?.results?.[current] || [];
   const answers = [...q?.incorrect_answers, q?.correct_answer].sort();
 
   return (
@@ -100,7 +102,9 @@ export default function Game() {
       <div className="w-full max-w-2xl h-3 bg-lightgreycolor rounded-full mb-8">
         <div
           className="h-3 bg-yellow-400 rounded-full transition-all"
-          style={{ width: `${((current + 1) / questions.length) * 100}%` }}
+          style={{
+            width: `${((current + 1) / questions.results.length) * 100}%`,
+          }}
         ></div>
       </div>
 
@@ -115,7 +119,7 @@ export default function Game() {
           className="bg-whitecolor backdrop-blur-md p-4 rounded-2xl shadow-xl w-full text-center"
         >
           <h2 className="text-3xl md:text-4xl text-redcolor font-bold mb-4">
-            Ερώτηση {current + 1} / {questions.length}
+            Ερώτηση {current + 1} / {questions.results.length}
           </h2>
           <p
             className="text-xl md:text-3xl text-redcolor mb-4"

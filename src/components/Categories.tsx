@@ -108,7 +108,7 @@ export default function Categories() {
         animate={{ opacity: 1 }}
         className="flex flex-col gap-3 max-w-[700px] w-full"
       >
-        {data.map((cat: any) => {
+        {data?.trivia_categories?.map((cat: any) => {
           return (
             <motion.button
               key={cat.id}
