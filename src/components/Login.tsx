@@ -18,8 +18,6 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     console.log("FORM DATA:", data);
-    // TODO: Call login API here
-    navigate("/game");
   };
 
   return (
@@ -28,7 +26,7 @@ export const Login = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 w-full max-w-[400px] shadow-2xl text-white"
+        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 w-full max-w-[450px] shadow-2xl text-white"
       >
         {/* Header */}
         <motion.h2
@@ -111,7 +109,7 @@ export const Login = () => {
         {/* Register Link Button */}
         <button
           onClick={() => navigate("/register")}
-          className="w-full mt-4 border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
+          className="w-full mt-4 border-2 border-white text-white font-semibold py-3 px-1 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
           Δεν έχεις λογαριασμό; Εγγραφή τώρα
         </button>
@@ -122,7 +120,7 @@ export const Login = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate("/")}
-          className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
+          className="w-full border-2 border-white text-white font-semibold py-3 px-1 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
           Αρχική
         </button>

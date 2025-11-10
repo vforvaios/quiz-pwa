@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { registerUser } from "@/services/user";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { enqueueSnackbar } from "notistack";
 
 type RegisterFormData = {
   name: string;
@@ -19,11 +23,38 @@ export const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>();
 
+  const { mutateAsync, isError, isSuccess, error } = useMutation({
+    mutationKey: ["register-user"],
+    mutationFn: registerUser,
+  });
+
   const onSubmit = async (data: RegisterFormData) => {
-    console.log("REGISTER DATA:", data);
-    // TODO: Call backend API to register user
-    navigate("/login");
+    try {
+      await mutateAsync({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        err?.message ||
+        err?.error ||
+        "Κάτι πήγε στραβά";
+      enqueueSnackbar(message, { variant: "error", autoHideDuration: 4000 });
+    }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      enqueueSnackbar("Η εγγραφή σας ολοκληρώθηκε", {
+        variant: "success",
+        autoHideDuration: 4000,
+      });
+      navigate("/login");
+    }
+  }, [isSuccess]);
 
   const password = watch("password");
 
@@ -33,7 +64,7 @@ export const Register = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 w-full max-w-[400px] shadow-2xl text-white"
+        className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 w-full max-w-[450px] shadow-2xl text-white"
       >
         {/* Header */}
         <motion.h2
@@ -149,7 +180,7 @@ export const Register = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-white text-redcolor font-bold py-3 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
+            className="w-full bg-white text-redcolor font-bold py-3 px-1 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
           >
             {isSubmitting ? "Εγγράφεσαι..." : "Εγγραφή"}
           </button>
@@ -161,7 +192,7 @@ export const Register = () => {
         {/* Login Link Button */}
         <button
           onClick={() => navigate("/login")}
-          className="w-full border-2 border-white text-white font-semibold py-3 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
+          className="w-full border-2 border-white text-white font-semibold py-3 px-1 rounded-xl hover:bg-white hover:text-redcolor transition-all duration-300"
         >
           Έχεις ήδη λογαριασμό; Σύνδεση
         </button>
