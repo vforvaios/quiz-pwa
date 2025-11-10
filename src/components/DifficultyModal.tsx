@@ -20,10 +20,10 @@ export default function DifficultyModal({
               damping: 20,
               duration: 0.6,
             }}
-            className="relative bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-white text-center overflow-hidden max-w-sm sm:max-w-md mx-auto"
+            className="relative bg-lightgreycolor rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-whitecolor text-center overflow-hidden max-w-sm sm:max-w-md mx-auto"
           >
             {/* Background decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-400 via-yellow-400 to-red-400"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-greencolor via-greycolor to-redcolor"></div>
 
             {/* Floating emojis */}
             <motion.div
@@ -62,11 +62,11 @@ export default function DifficultyModal({
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 text-2xl sm:text-3xl font-black mb-2 tracking-tight">
+              <h2 className="text-blackcolor text-2xl sm:text-3xl font-black mb-2 tracking-tight">
                 🕹️ Επιλογή Δυσκολίας
               </h2>
               <motion.p
-                className="text-gray-600 text-xs sm:text-sm font-bold tracking-wider"
+                className="text-darkgreycolor mb-2 text-xs sm:text-sm font-bold tracking-wider"
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
@@ -84,25 +84,23 @@ export default function DifficultyModal({
               {[
                 {
                   label: "ΕΥΚΟΛΟ 😌",
-                  color:
-                    "bg-gradient-to-br from-green-400 to-emerald-500 text-white",
-                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(16,215,105,0.4)]",
+                  color: "bg-greencolor text-whitecolor",
+                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(15,215,105,0.4)]",
                   value: "1",
                   emoji: "🌟",
                 },
                 {
                   label: "ΜΕΤΡΙΟ 😅",
-                  color:
-                    "bg-gradient-to-br from-yellow-400 to-orange-500 text-white",
-                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(251,191,36,0.4)]",
+                  color: "bg-greycolor text-blackcolor",
+                  shadow:
+                    "hover:shadow-[0_8px_20px_-5px_rgba(229,232,226,0.4)]",
                   value: "2",
                   emoji: "⚡",
                 },
                 {
                   label: "ΔΥΣΚΟΛΟ 😈",
-                  color:
-                    "bg-gradient-to-br from-red-500 to-pink-600 text-white",
-                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(239,68,68,0.4)]",
+                  color: "bg-redcolor text-whitecolor",
+                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(198,55,26,0.4)]",
                   value: "3",
                   emoji: "💀",
                 },
@@ -122,13 +120,13 @@ export default function DifficultyModal({
                 >
                   <motion.button
                     onClick={() => handleDifficulty(level.value)}
-                    className={`relative w-full px-4 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-lg active:scale-95 ${level.color} ${level.shadow} group overflow-hidden text-sm sm:text-base`}
+                    className={`relative w-full px-4 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-lg active:scale-95 ${level.color} ${level.shadow} group overflow-hidden text-sm sm:text-base border-2 border-whitecolor`}
                     whileHover={{
                       boxShadow: "0 10px 25px -5px rgba(0,0,0,0.2)",
                     }}
                   >
                     {/* Shine effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-whitecolor/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
                     <span className="relative flex items-center justify-center gap-2">
                       <motion.span
@@ -158,11 +156,11 @@ export default function DifficultyModal({
               <motion.button
                 whileHover={{
                   scale: 1.03,
-                  background: "linear-gradient(135deg, #e5e8e2, #bebec1)",
+                  backgroundColor: "var(--dark-grey-color)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setOpen(false)}
-                className="px-5 py-2.5 rounded-lg font-bold text-gray-700 bg-gradient-to-r from-gray-200 to-gray-300 hover:shadow-lg active:scale-95 transition-all duration-200 border-2 border-white shadow-md text-sm sm:text-base"
+                className="px-5 py-2.5 rounded-lg font-bold text-blackcolor bg-greycolor hover:bg-darkgreycolor active:scale-95 transition-all duration-200 border-2 border-whitecolor shadow-md text-sm sm:text-base"
               >
                 <span className="flex items-center justify-center gap-2">
                   Κλείσιμο
