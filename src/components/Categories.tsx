@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { getCategories } from "../services/triviaAPI";
 import { useDispatch } from "react-redux";
 import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Modal from "./common/Modal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "./common/Loader";
 import { enqueueSnackbar } from "notistack";
+import DifficultyModal from "./DifficultyModal";
 
 export default function Categories() {
   const queryClient = useQueryClient();
@@ -52,48 +53,11 @@ export default function Categories() {
 
   return (
     <div className="flex flex-col items-center justify-center px-6 text-white">
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <h2 className="text-blackcolor text-2xl font-semibold mb-3 tracking-tight">
-          Επιλογή Δυσκολίας
-        </h2>
-        <p className="text-darkgreycolor mb-6 text-sm uppercase font-medium tracking-wide">
-          Παρακαλώ επίλεξε βαθμό δυσκολίας
-        </p>
-
-        <div className="flex gap-3 justify-center mb-6">
-          <button
-            className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
-                 bg-greencolor hover:brightness-110 active:scale-95 shadow"
-            onClick={() => handleDifficulty("1")}
-          >
-            ΕΥΚΟΛΟ
-          </button>
-          <button
-            className="px-5 py-2.5 rounded-lg font-semibold text-blackcolor transition 
-                 bg-greycolor hover:bg-darkgreycolor active:scale-95 shadow"
-            onClick={() => handleDifficulty("2")}
-          >
-            ΜΕΤΡΙΟ
-          </button>
-          <button
-            className="px-5 py-2.5 rounded-lg font-semibold text-white transition 
-                 bg-redcolor hover:brightness-110 active:scale-95 shadow"
-            onClick={() => handleDifficulty("3")}
-          >
-            ΔΥΣΚΟΛΟ
-          </button>
-        </div>
-
-        <div className="flex justify-end">
-          <button
-            onClick={() => setOpen(false)}
-            className="px-4 py-2 rounded-lg font-medium text-blackcolor bg-lightgreycolor 
-                 hover:bg-greycolor active:scale-95 transition"
-          >
-            Κλείσιμο
-          </button>
-        </div>
-      </Modal>
+      <DifficultyModal
+        open={open}
+        setOpen={setOpen}
+        handleDifficulty={handleDifficulty}
+      />
 
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
