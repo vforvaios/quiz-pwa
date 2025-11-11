@@ -2,12 +2,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 import FacebookShareButton from "./common/FacebookShareButton";
+import { amountOfQuestions } from "@/constants";
 
 export default function Results() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const score = state?.score || 0;
-  const total = state?.total || 10;
+  const total = state?.total || amountOfQuestions;
 
   return (
     <>
