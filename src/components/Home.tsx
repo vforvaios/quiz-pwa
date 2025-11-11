@@ -1,15 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PlayButton from "./common/PlayButton";
-import HelmetHeader from "./common/Helmet";
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-[calc(100vh-130px)] flex flex-col items-center justify-center text-white px-6 text-center">
-      <HelmetHeader />
-
       {/* Hero Title */}
 
       <motion.h1
