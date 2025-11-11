@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { loginUserReq } from "@/services/user";
+import { enqueueSnackbar } from "notistack";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setLoginUser } from "@/models/actions/loginActions";
 
 type LoginFormData = {
   email: string;
@@ -9,6 +15,7 @@ type LoginFormData = {
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -16,9 +23,47 @@ export const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
 
+  const {
+    data: loginUserData,
+    mutateAsync: loginUserMutate,
+    isPending: loginUserIsPending,
+    isSuccess: loginUserIsSuccess,
+  } = useMutation({
+    mutationFn: async (data: LoginFormData) => {
+      return loginUserReq(data);
+    },
+    mutationKey: ["loginUser"],
+  });
+
   const onSubmit = async (data: LoginFormData) => {
-    console.log("FORM DATA:", data);
+    try {
+      await loginUserMutate({
+        email: data.email,
+        password: data.password,
+      });
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        err?.message ||
+        err?.error ||
+        "Κάτι πήγε στραβά";
+      enqueueSnackbar(message, { variant: "error", autoHideDuration: 4000 });
+    }
   };
+
+  useEffect(() => {
+    if (loginUserIsSuccess) {
+      dispatch(setLoginUser(loginUserData));
+      enqueueSnackbar("Καλώς ήρθατε!", {
+        variant: "success",
+        autoHideDuration: 4000,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [loginUserIsSuccess]);
 
   return (
     <div className="flex flex-col items-center px-6">
@@ -99,10 +144,10 @@ export const Login = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || loginUserIsPending}
             className="w-full bg-white text-redcolor font-bold py-3 rounded-xl mt-4 hover:bg-redcolor hover:text-white transition-all duration-300 disabled:opacity-50"
           >
-            {isSubmitting ? "Συνδέεσαι..." : "Σύνδεση"}
+            {isSubmitting || loginUserIsPending ? "Συνδέεσαι..." : "Σύνδεση"}
           </button>
         </form>
 

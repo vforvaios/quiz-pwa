@@ -8,4 +8,12 @@ const registerUser = async ({ name, email, password }: any) => {
   });
 };
 
-export { registerUser };
+const loginUserReq = async ({ email, password }: any) => {
+  return makeRequest({
+    method: "POST",
+    url: `api/login`,
+    body: JSON.stringify({ email, password }),
+  });
+};
+
+export { registerUser, loginUserReq };
