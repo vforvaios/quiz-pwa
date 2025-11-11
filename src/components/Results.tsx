@@ -2,7 +2,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 import FacebookShareButton from "./common/FacebookShareButton";
-import HelmetHeader from "./common/Helmet";
 
 export default function Results() {
   const navigate = useNavigate();
@@ -10,10 +9,8 @@ export default function Results() {
   const score = state?.score || 0;
   const total = state?.total || 10;
 
-  const shareUrl = window.location.origin;
   return (
     <>
-      <HelmetHeader shareUrl={shareUrl} />
       <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-6 py-10 relative text-white">
         {/* Confetti */}
         <Confetti width={window.innerWidth} height={window.innerHeight} />
