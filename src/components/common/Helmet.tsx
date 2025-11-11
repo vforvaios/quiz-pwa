@@ -8,7 +8,7 @@ const HelmetHeader = () => {
       <title>QUIZ FRIENDS - Test Your Knowledge</title>
       <meta
         name="description"
-        content="🎯 Take the ultimate quiz challenge! Play now and share your results with friends!"
+        content="Take the ultimate quiz challenge! Play now and share your results with friends!"
       />
       <link rel="canonical" href="https://quiz-pwa-nine.vercel.app/" />
 
@@ -17,7 +17,7 @@ const HelmetHeader = () => {
       <meta property="og:title" content="QUIZ FRIENDS - Test Your Knowledge" />
       <meta
         property="og:description"
-        content="🎯 Take the ultimate quiz challenge! Play now and share your results with friends!"
+        content="Take the ultimate quiz challenge! Play now and share your results with friends!"
       />
       <meta
         property="og:image"
