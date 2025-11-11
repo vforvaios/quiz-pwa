@@ -17,7 +17,6 @@ import ForgotPassword from "./components/ForgotPassword";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/common/ErrorBoundary";
-import HelmetHeader from "./components/common/Helmet";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -29,7 +28,6 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <Loader show={loading} />
         <Router>
-          <HelmetHeader />
           <ErrorBoundary>
             <Routes>
               {/* 🔸 Public pages (Header/Footer) */}
