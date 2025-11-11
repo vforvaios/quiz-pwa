@@ -13,6 +13,7 @@ import { enqueueSnackbar } from "notistack";
 import { ErrorFallback } from "./common/ErrorFallback";
 import { useRedirectOnInvalidAccess } from "@/hooks/useNavigateRefresh";
 import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
+import { amountOfQuestions } from "@/constants";
 
 export default function Game() {
   useRedirectOnInvalidAccess();
@@ -33,7 +34,7 @@ export default function Game() {
     isLoading,
   } = useQuery({
     queryKey: ["get-questions", category, difficulty],
-    queryFn: () => getQuestions(category, difficulty, 5),
+    queryFn: () => getQuestions(category, difficulty, amountOfQuestions),
     enabled: !!category && !!difficulty,
     refetchOnWindowFocus: false,
     retry: false,
@@ -41,15 +42,25 @@ export default function Game() {
 
   function handleAnswer(answer: string) {
     setSelected(answer);
-    if (answer === q.correct_answer) setScore(score + 1);
+
+    // Χρησιμοποιούμε functional update για να έχουμε το τελευταίο score
+    if (answer === q.correct_answer) {
+      setScore((prevScore) => prevScore + 1);
+    }
 
     setTimeout(() => {
+      // Έλεγχος αν είναι η τελευταία ερώτηση
       if (current + 1 < questions?.results?.length) {
         setCurrent(current + 1);
         setSelected(null);
       } else {
+        // Χρησιμοποιούμε το τρέχον score για την τελευταία απάντηση
+        const finalScore = answer === q.correct_answer ? score + 1 : score;
         navigate("/results", {
-          state: { score, total: questions.results?.length },
+          state: {
+            score: finalScore,
+            total: questions.results?.length,
+          },
         });
       }
     }, 1500);
