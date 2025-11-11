@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 import FacebookShareButton from "./common/FacebookShareButton";
+import HelmetHeader from "./common/Helmet";
 
 export default function Results() {
   const navigate = useNavigate();
@@ -11,62 +12,61 @@ export default function Results() {
 
   const shareUrl = window.location.origin;
   return (
-    <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-6 py-10 relative text-white">
-      {/* Confetti */}
-      <Confetti width={window.innerWidth} height={window.innerHeight} />
+    <>
+      <HelmetHeader shareUrl={shareUrl} />
+      <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-6 py-10 relative text-white">
+        {/* Confetti */}
+        <Confetti width={window.innerWidth} height={window.innerHeight} />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-        className="bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl text-center max-w-lg w-full"
-      >
-        <motion.h1
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-whitecolor text-4xl font-extrabold mb-4"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl text-center max-w-lg w-full"
         >
-          🏁 Τέλος Quiz!
-        </motion.h1>
-
-        <motion.p
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-2xl mb-6 text-whitecolor"
-        >
-          Το Σκορ σου:{" "}
-          <strong>
-            {score} / {total}
-          </strong>
-        </motion.p>
-
-        <div className="flex justify-center gap-4 flex-col md:flex-row">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
-            onClick={() => navigate("/game")}
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-whitecolor text-4xl font-extrabold mb-4"
           >
-            Παίξε ξανά
-          </motion.button>
+            🏁 Τέλος Quiz!
+          </motion.h1>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
-            onClick={() => navigate("/")}
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-2xl mb-6 text-whitecolor"
           >
-            Αρχική
-          </motion.button>
-          <FacebookShareButton
-            shareUrl={shareUrl}
-            score={score}
-            total={total}
-          />
-        </div>
-      </motion.div>
-    </div>
+            Το Σκορ σου:{" "}
+            <strong>
+              {score} / {total}
+            </strong>
+          </motion.p>
+
+          <div className="flex justify-center gap-4 flex-col md:flex-row">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
+              onClick={() => navigate("/game")}
+            >
+              Παίξε ξανά
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
+              onClick={() => navigate("/")}
+            >
+              Αρχική
+            </motion.button>
+            <FacebookShareButton shareUrl={shareUrl} />
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 }

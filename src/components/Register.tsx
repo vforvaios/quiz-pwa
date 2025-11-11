@@ -23,7 +23,7 @@ export const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>();
 
-  const { mutateAsync, isError, isSuccess, error } = useMutation({
+  const { mutateAsync, isSuccess } = useMutation({
     mutationKey: ["register-user"],
     mutationFn: registerUser,
   });
