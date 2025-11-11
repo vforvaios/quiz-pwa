@@ -18,7 +18,10 @@ const HelmetHeader = ({ shareUrl }: any) => {
         property="og:description"
         content="🎯 Take the ultimate quiz challenge! How many questions can you answer correctly? Play now and share your results!"
       />
-      <meta property="og:image" content="/quiz-share-image.png" />
+      <meta
+        property="og:image"
+        content="https://quiz-pwa-nine.vercel.app/logo.png"
+      />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="Quiz Master" />
@@ -31,7 +34,10 @@ const HelmetHeader = ({ shareUrl }: any) => {
         name="twitter:description"
         content="🎯 Take the ultimate quiz challenge! Play now and share your results!"
       />
-      <meta name="twitter:image" content="/quiz-share-image.png" />
+      <meta
+        name="twitter:image"
+        content="https://quiz-pwa-nine.vercel.app/logo.png"
+      />
     </Helmet>
   );
 };

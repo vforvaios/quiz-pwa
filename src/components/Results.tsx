@@ -63,7 +63,7 @@ export default function Results() {
             >
               Αρχική
             </motion.button>
-            <FacebookShareButton shareUrl={shareUrl} />
+            <FacebookShareButton />
           </div>
         </motion.div>
       </div>
