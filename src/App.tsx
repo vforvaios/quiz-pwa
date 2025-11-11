@@ -25,12 +25,11 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <HelmetHeader />
-
       <SnackbarProvider />
       <QueryClientProvider client={queryClient}>
         <Loader show={loading} />
         <Router>
+          <HelmetHeader />
           <ErrorBoundary>
             <Routes>
               {/* 🔸 Public pages (Header/Footer) */}
