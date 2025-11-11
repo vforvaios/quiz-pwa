@@ -43,11 +43,11 @@ export default function Results() {
             </strong>
           </motion.p>
 
-          <div className="flex justify-center gap-4 flex-col md:flex-row">
+          <div className="flex justify-center gap-3 flex-col md:flex-row">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl px-4 py-3 shadow-lg"
               onClick={() => navigate("/game")}
             >
               Παίξε ξανά
@@ -56,7 +56,7 @@ export default function Results() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg"
+              className="bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl px-4 py-3 shadow-lg"
               onClick={() => navigate("/")}
             >
               Αρχική
