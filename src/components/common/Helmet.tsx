@@ -21,7 +21,7 @@ const HelmetHeader = () => {
       />
       <meta
         property="og:image"
-        content="https://quiz-pwa-nine.vercel.app/quiz-share-image.png"
+        content="https://quiz-pwa-nine.vercel.app/logo.png"
       />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -36,7 +36,7 @@ const HelmetHeader = () => {
       />
       <meta
         name="twitter:image"
-        content="https://quiz-pwa-nine.vercel.app/quiz-share-image.png"
+        content="https://quiz-pwa-nine.vercel.app/logo.png"
       />
     </Helmet>
   );
