@@ -17,15 +17,15 @@ import ForgotPassword from "./components/ForgotPassword";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/common/ErrorBoundary";
-import ProtectedRoute from "./components/common/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./components/admin/Dashboard";
-import { token } from "./models/selectors/loginSelectors";
+import { userLoggedIn } from "./models/selectors/loginSelectors";
 import Questions from "./components/admin/questions/Questions";
+import ProtectedAdminRoute from "./components/common/ProtectedAdminRoute";
 
 const App = () => {
   const loading = useSelector(isLoading);
-  const userToken = useSelector(token);
+  const loggedUser = useSelector(userLoggedIn);
   const queryClient = new QueryClient();
 
   return (
@@ -55,9 +55,11 @@ const App = () => {
               <Route
                 path="/dashboard"
                 element={
-                  // <ProtectedRoute isAllowed={userToken}>
-                  <DashboardLayout />
-                  // </ProtectedRoute>
+                  <ProtectedAdminRoute
+                    isAllowed={loggedUser?.isAdmin && loggedUser?.token}
+                  >
+                    <DashboardLayout />
+                  </ProtectedAdminRoute>
                 }
               >
                 <Route index element={<Dashboard />} />
