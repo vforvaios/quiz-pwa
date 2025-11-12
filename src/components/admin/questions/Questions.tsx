@@ -10,20 +10,20 @@ import {
   TextField,
 } from "@mui/material";
 
-interface Question {
-  id: number;
-  question: string;
-}
+// interface Question {
+//   id: number;
+//   question: string;
+// }
 
 const Questions = () => {
-  const { fetchAll, remove } = useCrud<Question>("/api/admin/questions");
+  const { fetchAll, remove } = useCrud<any>("api/admin/questions");
   const [criteria, setCriteria] = useState({ question: "" });
   const [pagination, setPagination] = useState({
     page: 1,
     size: 5,
     total: null,
   });
-  const [data, setData] = useState<Question[]>([]);
+  const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -84,7 +84,7 @@ const Questions = () => {
         <p>Loading...</p>
       ) : (
         <CrudTable
-          data={data}
+          data={data?.questions}
           columns={[
             { key: "id", label: "ID" },
             { key: "question", label: "Ερώτηση" },

@@ -17,16 +17,24 @@ export function useCrud<T>(endpoint: string) {
   const fetchAll = async (
     params?: SearchCriteria & Pagination
   ): Promise<T[]> => {
-    const url = new URL(endpoint, window.location.origin);
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== "") {
-          url.searchParams.append(key, String(value));
-        }
-      });
+    const cleanEndpoint = endpoint.replace(/^\//, "");
+    let fullUrl = `${cleanEndpoint}`;
+
+    if (params && Object.keys(params).length > 0) {
+      const query = Object.entries(params)
+        .filter(
+          ([_, value]) => value !== undefined && value !== "" && value !== null
+        )
+        .map(
+          ([key, value]) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`
+        )
+        .join("&");
+
+      fullUrl += `?${query}`;
     }
 
-    return makeRequest({ method: "GET", url: url.toString() });
+    return makeRequest({ method: "GET", url: fullUrl });
   };
 
   // κρατάμε state για criteria/pagination εκτός του hook

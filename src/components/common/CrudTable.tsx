@@ -43,7 +43,7 @@ export function CrudTable<T extends { id: string | number }>({
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item, i) => (
+          {data?.map((item, i) => (
             <TableRow
               key={item.id}
               className={i % 2 ? "bg-gray-50" : "bg-white"}
