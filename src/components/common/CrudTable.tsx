@@ -1,8 +1,18 @@
-import { Button } from "./Button";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
 
 interface CrudTableProps<T> {
   data: T[];
   columns: { key: keyof T; label: string }[];
+  pagination: any;
+  handlePageChange: any;
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
 }
@@ -10,46 +20,61 @@ interface CrudTableProps<T> {
 export function CrudTable<T extends { id: string | number }>({
   data,
   columns,
+  pagination,
+  handlePageChange,
   onEdit,
   onDelete,
 }: CrudTableProps<T>) {
   return (
     <div className="overflow-x-auto rounded-xl shadow border border-gray-200">
-      <table className="min-w-full text-sm text-left">
-        <thead className="bg-gray-100  text-xs text-gray-600">
-          <tr>
+      <Table>
+        <TableHead>
+          <TableRow>
             {columns.map((col) => (
-              <th key={col.key as string} className="px-4 py-2">
+              <TableCell key={col.key as string} className="px-4 py-2">
                 {col.label}
-              </th>
+              </TableCell>
             ))}
             {(onEdit || onDelete) && (
-              <th className="px-4 py-2 text-right">Ενέργειες</th>
+              <TableCell align="right" className="px-4 py-2 text-right">
+                Ενέργειες
+              </TableCell>
             )}
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {data.map((item, i) => (
-            <tr key={item.id} className={i % 2 ? "bg-gray-50" : "bg-white"}>
+            <TableRow
+              key={item.id}
+              className={i % 2 ? "bg-gray-50" : "bg-white"}
+            >
               {columns.map((col) => (
-                <td key={col.key as string} className="px-4 py-2">
+                <TableCell key={col.key as string} className="px-4 py-2">
                   {String(item[col.key])}
-                </td>
+                </TableCell>
               ))}
               {(onEdit || onDelete) && (
-                <td className="px-4 py-2 flex gap-2 justify-end">
+                <TableCell className="px-4 py-2 flex gap-2 justify-end">
                   {onEdit && <Button onClick={() => onEdit(item)}>Edit</Button>}
                   {onDelete && (
-                    <Button variant="danger" onClick={() => onDelete(item)}>
+                    <Button onClick={() => onDelete(item)}>
                       <i className="icon-trash-empty" />
                     </Button>
                   )}
-                </td>
+                </TableCell>
               )}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
+      <TablePagination
+        component="div"
+        count={100}
+        page={pagination.page}
+        onPageChange={handlePageChange}
+        rowsPerPage={10}
+        onRowsPerPageChange={() => {}}
+      />
     </div>
   );
 }

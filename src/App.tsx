@@ -55,9 +55,9 @@ const App = () => {
               <Route
                 path="/dashboard"
                 element={
-                  <ProtectedRoute isAllowed={userToken}>
-                    <DashboardLayout />
-                  </ProtectedRoute>
+                  // <ProtectedRoute isAllowed={userToken}>
+                  <DashboardLayout />
+                  // </ProtectedRoute>
                 }
               >
                 <Route index element={<Dashboard />} />
