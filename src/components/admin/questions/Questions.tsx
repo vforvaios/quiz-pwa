@@ -4,17 +4,16 @@ import { Input } from "../Input";
 import { Button } from "@/components/common/Button";
 import { CrudTable } from "@/components/common/CrudTable";
 
-interface User {
+interface Question {
   id: number;
-  name: string;
-  email: string;
+  question: string;
 }
 
 const Questions = () => {
-  const { fetchAll, remove } = useCrud<User>("/api/users");
-  const [criteria, setCriteria] = useState({ name: "", email: "" });
+  const { fetchAll, remove } = useCrud<Question>("/api/admin/questions");
+  const [criteria, setCriteria] = useState({ question: "" });
   const [pagination, setPagination] = useState({ page: 1, limit: 5 });
-  const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -47,15 +46,13 @@ const Questions = () => {
       {/* Search Criteria */}
       <div className="flex gap-2 items-end">
         <Input
-          label="Name"
-          value={criteria.name}
-          onChange={(e) => setCriteria({ ...criteria, name: e.target.value })}
+          label="Ερώτηση"
+          value={criteria.question}
+          onChange={(e) =>
+            setCriteria({ ...criteria, question: e.target.value })
+          }
         />
-        <Input
-          label="Email"
-          value={criteria.email}
-          onChange={(e) => setCriteria({ ...criteria, email: e.target.value })}
-        />
+
         <Button onClick={handleSearch}>Search</Button>
       </div>
 
@@ -67,8 +64,7 @@ const Questions = () => {
           data={data}
           columns={[
             { key: "id", label: "ID" },
-            { key: "name", label: "Name" },
-            { key: "email", label: "Email" },
+            { key: "question", label: "Ερώτηση" },
           ]}
           onDelete={(u) => remove(u.id)}
         />

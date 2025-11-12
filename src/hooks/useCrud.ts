@@ -1,3 +1,4 @@
+import makeRequest from "@/utils/makeRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface Pagination {
@@ -6,7 +7,7 @@ export interface Pagination {
 }
 
 export interface SearchCriteria {
-  [key: string]: string | number | undefined;
+  [key: string]: string | number | undefined | null;
 }
 
 export function useCrud<T>(endpoint: string) {
@@ -24,21 +25,17 @@ export function useCrud<T>(endpoint: string) {
       });
     }
 
-    const res = await fetch(url.toString());
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return res.json();
+    return makeRequest({ method: "GET", url: url.toString() });
   };
 
   // κρατάμε state για criteria/pagination εκτός του hook
   const create = useMutation({
     mutationFn: async (item: Partial<T>) => {
-      const res = await fetch(endpoint, {
+      return makeRequest({
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        url: endpoint,
         body: JSON.stringify(item),
       });
-      if (!res.ok) throw new Error("Create failed");
-      return res.json();
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
   });
@@ -51,22 +48,21 @@ export function useCrud<T>(endpoint: string) {
       id: string | number;
       item: Partial<T>;
     }) => {
-      const res = await fetch(`${endpoint}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+      return makeRequest({
+        method: "POST",
+        url: `${endpoint}/${id}`,
         body: JSON.stringify(item),
       });
-      if (!res.ok) throw new Error("Update failed");
-      return res.json();
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
   });
 
   const remove = useMutation({
     mutationFn: async (id: string | number) => {
-      const res = await fetch(`${endpoint}/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Delete failed");
-      return res.text();
+      return makeRequest({
+        method: "DELETE",
+        url: `${endpoint}/${id}`,
+      });
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
   });
