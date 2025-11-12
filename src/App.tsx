@@ -17,9 +17,14 @@ import ForgotPassword from "./components/ForgotPassword";
 import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/common/ErrorBoundary";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Dashboard from "./components/admin/Dashboard";
+import { token } from "./models/selectors/loginSelectors";
 
 const App = () => {
   const loading = useSelector(isLoading);
+  const userToken = useSelector(token);
   const queryClient = new QueryClient();
 
   return (
@@ -43,6 +48,16 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
+              </Route>
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute isAllowed={userToken}>
+                    <DashboardLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Dashboard />} />
               </Route>
             </Routes>
           </ErrorBoundary>
