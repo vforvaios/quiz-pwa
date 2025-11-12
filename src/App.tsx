@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./components/admin/Dashboard";
 import { token } from "./models/selectors/loginSelectors";
+import Questions from "./components/admin/questions/Questions";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -43,12 +44,14 @@ const App = () => {
                 <Route path="/leaderboard" element={<LeaderBoard />} />
                 <Route path="/profile" element={<Profile />} />
               </Route>
+
               <Route element={<HomeLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
               </Route>
+
               <Route
                 path="/dashboard"
                 element={
@@ -58,6 +61,7 @@ const App = () => {
                 }
               >
                 <Route index element={<Dashboard />} />
+                <Route path="questions" element={<Questions />} />
               </Route>
             </Routes>
           </ErrorBoundary>

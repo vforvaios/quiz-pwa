@@ -42,11 +42,8 @@ const SideBar = ({ sidebarOpen, isMobile, setSidebarOpen }: SideBarProps) => {
         <Link to="/dashboard" className="block hover:underline">
           Αρχική
         </Link>
-        <Link to="/dashboard/templates" className="block hover:underline">
-          Templates
-        </Link>
-        <Link to="/dashboard/profile" className="block hover:underline">
-          Προφίλ
+        <Link to="/dashboard/questions" className="block hover:underline">
+          Ερωτήσεις
         </Link>
         <button onClick={handleLogout} className="block hover:underline">
           Εξοδος
