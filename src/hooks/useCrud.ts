@@ -1,24 +1,36 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+export interface Pagination {
+  page: number;
+  limit: number;
+}
+
+export interface SearchCriteria {
+  [key: string]: string | number | undefined;
+}
 
 export function useCrud<T>(endpoint: string) {
   const queryClient = useQueryClient();
 
-  const fetchAll = async (): Promise<T[]> => {
-    const res = await fetch(endpoint);
+  const fetchAll = async (
+    params?: SearchCriteria & Pagination
+  ): Promise<T[]> => {
+    const url = new URL(endpoint, window.location.origin);
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          url.searchParams.append(key, String(value));
+        }
+      });
+    }
+
+    const res = await fetch(url.toString());
     if (!res.ok) throw new Error("Failed to fetch data");
     return res.json();
   };
 
-  const {
-    data = [],
-    isLoading,
-    error,
-  } = useQuery<T[]>({
-    queryKey: [endpoint],
-    queryFn: fetchAll,
-  });
-
-  const createMutation = useMutation({
+  // κρατάμε state για criteria/pagination εκτός του hook
+  const create = useMutation({
     mutationFn: async (item: Partial<T>) => {
       const res = await fetch(endpoint, {
         method: "POST",
@@ -31,7 +43,7 @@ export function useCrud<T>(endpoint: string) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
   });
 
-  const updateMutation = useMutation({
+  const update = useMutation({
     mutationFn: async ({
       id,
       item,
@@ -50,7 +62,7 @@ export function useCrud<T>(endpoint: string) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
   });
 
-  const deleteMutation = useMutation({
+  const remove = useMutation({
     mutationFn: async (id: string | number) => {
       const res = await fetch(`${endpoint}/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
@@ -60,11 +72,9 @@ export function useCrud<T>(endpoint: string) {
   });
 
   return {
-    data,
-    isLoading,
-    error,
-    create: createMutation.mutateAsync,
-    update: updateMutation.mutateAsync,
-    remove: deleteMutation.mutateAsync,
+    fetchAll, // 👈 Θα το καλέσουμε manual από το component
+    create: create.mutateAsync,
+    update: update.mutateAsync,
+    remove: remove.mutateAsync,
   };
 }

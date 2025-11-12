@@ -16,7 +16,7 @@ export function CrudTable<T extends { id: string | number }>({
   return (
     <div className="overflow-x-auto rounded-xl shadow border border-gray-200">
       <table className="min-w-full text-sm text-left">
-        <thead className="bg-gray-100 uppercase text-xs text-gray-600">
+        <thead className="bg-gray-100  text-xs text-gray-600">
           <tr>
             {columns.map((col) => (
               <th key={col.key as string} className="px-4 py-2">
@@ -24,7 +24,7 @@ export function CrudTable<T extends { id: string | number }>({
               </th>
             ))}
             {(onEdit || onDelete) && (
-              <th className="px-4 py-2 text-right">Actions</th>
+              <th className="px-4 py-2 text-right">Ενέργειες</th>
             )}
           </tr>
         </thead>
@@ -41,7 +41,7 @@ export function CrudTable<T extends { id: string | number }>({
                   {onEdit && <Button onClick={() => onEdit(item)}>Edit</Button>}
                   {onDelete && (
                     <Button variant="danger" onClick={() => onDelete(item)}>
-                      Delete
+                      <i className="icon-trash-empty" />
                     </Button>
                   )}
                 </td>
