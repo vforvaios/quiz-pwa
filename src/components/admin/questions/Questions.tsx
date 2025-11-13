@@ -89,6 +89,13 @@ const Questions = () => {
             { key: "question", label: "Ερώτηση" },
           ]}
           onDelete={(u) => remove(u.id)}
+          onEdit={(item) => {
+            console.log(item);
+            setCriteria({
+              question: item.question,
+              category: 2, // TODO CHANGE DYNAMICALLY
+            });
+          }}
           pagination={pagination}
           handlePageChange={handlePageChange}
         />

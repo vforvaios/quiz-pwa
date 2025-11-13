@@ -30,6 +30,16 @@ export function CrudTable<T extends { id: string | number }>({
 }: CrudTableProps<T>) {
   return (
     <div className="overflow-x-auto rounded-xl shadow border border-gray-200">
+      <div className="text-center flex justify-center py-6">
+        <Pagination
+          count={Math.ceil(count / recordsPerPage)}
+          page={pagination.page}
+          onChange={(e: any, page) => {
+            console.log(e);
+            handlePageChange(page);
+          }}
+        />
+      </div>
       <Table>
         <TableHead>
           <TableRow>
@@ -49,11 +59,15 @@ export function CrudTable<T extends { id: string | number }>({
             >
               {columns.map((col) => (
                 <TableCell key={col.key as string} className="px-4 py-2">
+                  <span className="hiddenElement">{col.label}</span>
                   {String(item[col.key])}
                 </TableCell>
               ))}
               {(onEdit || onDelete) && (
-                <TableCell className="px-4 py-2 flex gap-2 justify-end">
+                <TableCell
+                  align="right"
+                  className="px-4 py-2 flex gap-2 justify-end"
+                >
                   {onEdit && <Button onClick={() => onEdit(item)}>Edit</Button>}
                   {onDelete && (
                     <Button onClick={() => onDelete(item)}>
@@ -66,14 +80,16 @@ export function CrudTable<T extends { id: string | number }>({
           ))}
         </TableBody>
       </Table>
-      <Pagination
-        count={Math.ceil(count / recordsPerPage)}
-        page={pagination.page}
-        onChange={(e: any, page) => {
-          console.log(e);
-          handlePageChange(page);
-        }}
-      />
+      <div className="text-center flex justify-center py-6">
+        <Pagination
+          count={Math.ceil(count / recordsPerPage)}
+          page={pagination.page}
+          onChange={(e: any, page) => {
+            console.log(e);
+            handlePageChange(page);
+          }}
+        />
+      </div>
     </div>
   );
 }
