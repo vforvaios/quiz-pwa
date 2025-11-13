@@ -1,20 +1,52 @@
-interface HeaderProps {
-  isMobile: boolean;
-  setSidebarOpen: (arg: boolean) => void;
-}
+import AppBar from "@mui/material/AppBar";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import withToggle from "./withToggle";
+import { Link } from "react-router-dom";
 
-const Header = ({ isMobile, setSidebarOpen }: HeaderProps) => {
+const Header = ({ toggleValue, setToggleValue }: any) => {
   return (
-    <header className="p-4 bg-white shadow flex items-center justify-between">
-      {/* Κουμπί ανοίγματος ΜΟΝΟ σε mobile */}
-      {isMobile && (
-        <button onClick={() => setSidebarOpen(true)} className=" transition">
-          <i className="icon-menu" />
-        </button>
-      )}
-      <h1 className="text-lg font-semibold">Πίνακας Ελέγχου</h1>
-    </header>
+    <>
+      <AppBar position="static">
+        <Toolbar className="header-toolbar">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className="burger-menu"
+            onClick={setToggleValue("left", true)}
+          >
+            <i className="icon-menu" />
+          </IconButton>
+          <Typography variant="h6" className="header-user-name">
+            Καλωσήρθες
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        anchor="left"
+        open={toggleValue.left}
+        onClose={setToggleValue("left", false)}
+      >
+        <ul>
+          <Link to="/" className="block hover:underline">
+            Πίσω στο παιχνίδι
+          </Link>
+          <Link to="/dashboard" className="block hover:underline">
+            Αρχική
+          </Link>
+          <Link to="/dashboard/questions" className="block hover:underline">
+            Ερωτήσεις
+          </Link>
+          <button onClick={() => {}} className="block hover:underline">
+            Εξοδος
+          </button>
+        </ul>
+      </Drawer>
+    </>
   );
 };
 
-export default Header;
+export default withToggle(Header);

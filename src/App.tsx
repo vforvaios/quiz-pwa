@@ -40,15 +40,8 @@ const App = () => {
               <Route element={<PublicLayout user={loggedUser} />}>
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/results" element={<Results />} />
 
-                <Route
-                  path="/results"
-                  element={
-                    <ProtectedRoute isAllowed={loggedUser?.token}>
-                      <Results />
-                    </ProtectedRoute>
-                  }
-                />
                 <Route
                   path="/leaderboard"
                   element={
