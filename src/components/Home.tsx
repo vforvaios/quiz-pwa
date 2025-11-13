@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PlayButton from "./common/PlayButton";
+import { useSelector } from "react-redux";
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
 
 export default function Home() {
   const navigate = useNavigate();
+  const loggedUser = useSelector(userLoggedIn);
 
   return (
     <div className="min-h-[calc(100vh-130px)] flex flex-col items-center justify-center text-white px-6 text-center">
@@ -40,21 +43,25 @@ export default function Home() {
 
         <PlayButton onClick={() => navigate("/categories")} />
 
-        {/* Login */}
-        <button
-          onClick={() => navigate("/login")}
-          className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
-        >
-          Σύνδεση
-        </button>
+        {!loggedUser && (
+          <>
+            {/* Login */}
+            <button
+              onClick={() => navigate("/login")}
+              className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+            >
+              Σύνδεση
+            </button>
 
-        {/* 🔥 NEW Register Button */}
-        <button
-          onClick={() => navigate("/register")}
-          className="border-2 border-redcolor bg-redcolor text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
-        >
-          Εγγραφή
-        </button>
+            {/* 🔥 NEW Register Button */}
+            <button
+              onClick={() => navigate("/register")}
+              className="border-2 border-redcolor bg-redcolor text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+            >
+              Εγγραφή
+            </button>
+          </>
+        )}
       </motion.div>
 
       {/* Footer Tip */}

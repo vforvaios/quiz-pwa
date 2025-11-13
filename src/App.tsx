@@ -37,7 +37,7 @@ const App = () => {
           <ErrorBoundary>
             <Routes>
               {/* 🔸 Public pages (Header/Footer) */}
-              <Route element={<PublicLayout />}>
+              <Route element={<PublicLayout user={loggedUser} />}>
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/game" element={<Game />} />
                 <Route path="/results" element={<Results />} />
