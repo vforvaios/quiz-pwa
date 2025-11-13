@@ -1,10 +1,13 @@
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const loggedUser = useSelector(userLoggedIn);
   const navigate = useNavigate();
 
   // ✅ Close when pressing ESC
@@ -71,7 +74,15 @@ const Header = () => {
             >
               ✖
             </button>
-
+            {loggedUser?.isAdmin && (
+              <Link
+                to="/dashboard"
+                onClick={() => setOpen(false)}
+                className="text-lg font-bold hover:text-redcolor"
+              >
+                Διαχείριση
+              </Link>
+            )}
             <Link
               to="/"
               onClick={() => setOpen(false)}

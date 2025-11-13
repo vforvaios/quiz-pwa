@@ -39,6 +39,9 @@ const SideBar = ({ sidebarOpen, isMobile, setSidebarOpen }: SideBarProps) => {
       </div>
 
       <nav className="space-y-2 p-4">
+        <Link to="/" className="block hover:underline">
+          Πίσω στο παιχνίδι
+        </Link>
         <Link to="/dashboard" className="block hover:underline">
           Αρχική
         </Link>

@@ -42,8 +42,15 @@ export default function Home() {
         {/* Start Quiz */}
 
         <PlayButton onClick={() => navigate("/categories")} />
-
-        {!loggedUser && (
+        {loggedUser?.isAdmin && (
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="border-2 border-white text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+          >
+            Διαχείριση
+          </button>
+        )}
+        {!loggedUser ? (
           <>
             {/* Login */}
             <button
@@ -61,6 +68,13 @@ export default function Home() {
               Εγγραφή
             </button>
           </>
+        ) : (
+          <button
+            onClick={() => navigate("/")}
+            className="border-2 border-redcolor bg-redcolor text-white font-semibold text-lg px-8 py-4 rounded-2xl hover:bg-white hover:text-redcolor transition-all duration-300"
+          >
+            Αποσύνδεση
+          </button>
         )}
       </motion.div>
 
