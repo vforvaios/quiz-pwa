@@ -21,7 +21,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./components/admin/Dashboard";
 import { userLoggedIn } from "./models/selectors/loginSelectors";
 import Questions from "./components/admin/questions/Questions";
-import ProtectedAdminRoute from "./components/common/ProtectedAdminRoute";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -40,9 +40,31 @@ const App = () => {
               <Route element={<PublicLayout user={loggedUser} />}>
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/game" element={<Game />} />
-                <Route path="/results" element={<Results />} />
-                <Route path="/leaderboard" element={<LeaderBoard />} />
-                <Route path="/profile" element={<Profile />} />
+
+                <Route
+                  path="/results"
+                  element={
+                    <ProtectedRoute isAllowed={loggedUser?.token}>
+                      <Results />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/leaderboard"
+                  element={
+                    <ProtectedRoute isAllowed={loggedUser?.token}>
+                      <LeaderBoard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute isAllowed={loggedUser?.token}>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
               </Route>
 
               <Route element={<HomeLayout />}>
@@ -55,11 +77,11 @@ const App = () => {
               <Route
                 path="/dashboard"
                 element={
-                  <ProtectedAdminRoute
+                  <ProtectedRoute
                     isAllowed={loggedUser?.isAdmin && loggedUser?.token}
                   >
                     <DashboardLayout />
-                  </ProtectedAdminRoute>
+                  </ProtectedRoute>
                 }
               >
                 <Route index element={<Dashboard />} />

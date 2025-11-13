@@ -1,15 +1,17 @@
+import { recordsPerPage } from "@/constants";
 import {
   Button,
+  Pagination,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
 } from "@mui/material";
 
 interface CrudTableProps<T> {
   data: T[];
+  count: number;
   columns: { key: keyof T; label: string }[];
   pagination: any;
   handlePageChange: any;
@@ -21,6 +23,7 @@ export function CrudTable<T extends { id: string | number }>({
   data,
   columns,
   pagination,
+  count,
   handlePageChange,
   onEdit,
   onDelete,
@@ -31,14 +34,10 @@ export function CrudTable<T extends { id: string | number }>({
         <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.key as string} className="px-4 py-2">
-                {col.label}
-              </TableCell>
+              <TableCell key={col.key as string}>{col.label}</TableCell>
             ))}
             {(onEdit || onDelete) && (
-              <TableCell align="right" className="px-4 py-2 text-right">
-                Ενέργειες
-              </TableCell>
+              <TableCell align="right">Ενέργειες</TableCell>
             )}
           </TableRow>
         </TableHead>
@@ -67,13 +66,13 @@ export function CrudTable<T extends { id: string | number }>({
           ))}
         </TableBody>
       </Table>
-      <TablePagination
-        component="div"
-        count={100}
+      <Pagination
+        count={Math.ceil(count / recordsPerPage)}
         page={pagination.page}
-        onPageChange={handlePageChange}
-        rowsPerPage={10}
-        onRowsPerPageChange={() => {}}
+        onChange={(e: any, page) => {
+          console.log(e);
+          handlePageChange(page);
+        }}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCrud } from "@/hooks/useCrud";
 import { CrudTable } from "@/components/common/CrudTable";
 import {
@@ -9,19 +9,16 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-
-// interface Question {
-//   id: number;
-//   question: string;
-// }
+import { CATEGORIES } from "@/constants";
 
 const Questions = () => {
   const { fetchAll, remove } = useCrud<any>("api/admin/questions");
-  const [criteria, setCriteria] = useState({ question: "" });
+  const [criteria, setCriteria] = useState<any>({
+    question: "",
+    category: null,
+  });
   const [pagination, setPagination] = useState({
     page: 1,
-    size: 5,
-    total: null,
   });
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,17 +34,12 @@ const Questions = () => {
   };
 
   const handlePageChange = async (delta: number) => {
-    const newPage = Math.max(1, pagination.page + delta);
-    const updated = { ...pagination, page: newPage };
-    setPagination(updated);
-    setIsLoading(true);
-    try {
-      const result = await fetchAll({ ...criteria, ...updated });
-      setData(result);
-    } finally {
-      setIsLoading(false);
-    }
+    setPagination({ ...pagination, page: delta });
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [pagination]);
 
   return (
     <div className="p-6 space-y-6">
@@ -67,11 +59,17 @@ const Questions = () => {
           <Select
             labelId="question_category"
             id="question_category"
-            value={null}
-            label="Age"
-            onChange={() => {}}
+            value={criteria.category || ""}
+            label="Κατηγορία"
+            onChange={(e) =>
+              setCriteria({ ...criteria, category: e.target.value as any })
+            }
           >
-            <MenuItem value={10}>Ten</MenuItem>
+            {Object.keys(CATEGORIES).map((cat) => (
+              <MenuItem key={cat} value={(CATEGORIES as any)?.[cat]}>
+                {cat}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <Button variant="contained" onClick={handleSearch}>
@@ -85,6 +83,7 @@ const Questions = () => {
       ) : (
         <CrudTable
           data={data?.questions}
+          count={data?.total}
           columns={[
             { key: "id", label: "ID" },
             { key: "question", label: "Ερώτηση" },

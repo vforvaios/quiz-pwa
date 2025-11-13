@@ -3,8 +3,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface Pagination {
   page: number;
-  size: number;
-  total: number | null;
 }
 
 export interface SearchCriteria {

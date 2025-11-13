@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-const ProtectedAdminRoute = ({
+const ProtectedRoute = ({
   isAllowed,
   children,
   redirectPath = "/login",
@@ -8,4 +8,4 @@ const ProtectedAdminRoute = ({
   return isAllowed ? children : <Navigate to={redirectPath} replace />;
 };
 
-export default ProtectedAdminRoute;
+export default ProtectedRoute;
