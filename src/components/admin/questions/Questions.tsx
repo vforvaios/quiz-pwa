@@ -10,19 +10,27 @@ import {
   TextField,
 } from "@mui/material";
 import { CATEGORIES } from "@/constants";
+import AdminModal from "../AdminModal";
+import QuestionForm from "./QuestionForm";
 
 const Questions = () => {
   const { fetchAll, remove } = useCrud<any>("api/admin/questions");
+  const [itemToBeCrud, setItemToBeCrud] = useState<any>(null);
   const [criteria, setCriteria] = useState<any>({
     question: "",
     category: null,
   });
+
+  const [open, setOpen] = useState<boolean>(false);
   const [pagination, setPagination] = useState({
     page: 1,
   });
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleSearch = async () => {
     setIsLoading(true);
     try {
@@ -43,6 +51,9 @@ const Questions = () => {
 
   return (
     <div className="p-6 space-y-6">
+      <AdminModal title="Ενημέρωση ερώτησης" open={open} onClose={handleClose}>
+        <QuestionForm item={itemToBeCrud} setItem={setItemToBeCrud} />
+      </AdminModal>
       <h1 className="text-xl font-bold">Ερωτήσεις</h1>
 
       {/* Search Criteria */}
@@ -83,18 +94,15 @@ const Questions = () => {
       ) : (
         <CrudTable
           data={data?.questions}
-          count={data?.total}
+          count={data?.total || 0}
           columns={[
             { key: "id", label: "ID" },
             { key: "question", label: "Ερώτηση" },
           ]}
           onDelete={(u) => remove(u.id)}
           onEdit={(item) => {
-            console.log(item);
-            setCriteria({
-              question: item.question,
-              category: 2, // TODO CHANGE DYNAMICALLY
-            });
+            setItemToBeCrud(item);
+            setOpen(true);
           }}
           pagination={pagination}
           handlePageChange={handlePageChange}
