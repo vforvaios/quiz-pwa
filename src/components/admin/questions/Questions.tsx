@@ -9,11 +9,14 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { CATEGORIES } from "@/constants";
 import AdminModal from "../AdminModal";
 import QuestionForm from "./QuestionForm";
+import { allCategories } from "@/models/selectors/adminSelectors";
+import { useSelector } from "react-redux";
 
 const Questions = () => {
+  const adminCategories = useSelector(allCategories);
+
   const { fetchAll, remove } = useCrud<any>("api/admin/questions");
   const [itemToBeCrud, setItemToBeCrud] = useState<any>(null);
   const [criteria, setCriteria] = useState<any>({
@@ -50,7 +53,7 @@ const Questions = () => {
   }, [pagination]);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       <AdminModal title="Ενημέρωση ερώτησης" open={open} onClose={handleClose}>
         <QuestionForm item={itemToBeCrud} setItem={setItemToBeCrud} />
       </AdminModal>
@@ -76,9 +79,9 @@ const Questions = () => {
               setCriteria({ ...criteria, category: e.target.value as any })
             }
           >
-            {Object.keys(CATEGORIES).map((cat) => (
-              <MenuItem key={cat} value={(CATEGORIES as any)?.[cat]}>
-                {cat}
+            {adminCategories?.map((cat: any) => (
+              <MenuItem key={cat.id} value={cat.id}>
+                {cat.category_name}
               </MenuItem>
             ))}
           </Select>

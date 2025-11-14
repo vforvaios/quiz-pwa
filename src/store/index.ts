@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import loaderReducer from "@/models/reducers/loaderReducer";
+import adminReducer from "@/models/reducers/adminReducer";
 
 const persistConfig = {
   key: "state",
@@ -14,6 +15,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
+    adminReducer,
     loginReducer,
     categoriesReducer,
     loaderReducer,

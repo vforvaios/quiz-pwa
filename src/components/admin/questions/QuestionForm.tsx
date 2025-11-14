@@ -1,4 +1,4 @@
-import { CATEGORIES } from "@/constants";
+import { allCategories } from "@/models/selectors/adminSelectors";
 import {
   TextField,
   Box,
@@ -7,9 +7,11 @@ import {
   InputLabel,
   MenuItem,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const QuestionForm = ({ item, setItem }: any) => {
-  console.log(item);
+  const adminCategories = useSelector(allCategories);
+
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <TextField
@@ -29,9 +31,9 @@ const QuestionForm = ({ item, setItem }: any) => {
             setItem({ ...item, categoryId: e.target.value as any })
           }
         >
-          {Object.keys(CATEGORIES).map((cat) => (
-            <MenuItem key={cat} value={(CATEGORIES as any)?.[cat]}>
-              {cat}
+          {adminCategories?.map((cat: any) => (
+            <MenuItem key={cat.id} value={cat.id}>
+              {cat.category_name}
             </MenuItem>
           ))}
         </Select>

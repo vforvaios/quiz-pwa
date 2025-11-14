@@ -18,7 +18,7 @@ export default function DashboardLayout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          p: 2,
           transition: "margin 0.3s",
           marginLeft: "0px",
         }}
