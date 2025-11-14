@@ -1,5 +1,7 @@
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import makeRequest from "@/utils/makeRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 export interface Pagination {
   page: number;
@@ -11,7 +13,7 @@ export interface SearchCriteria {
 
 export function useCrud<T>(endpoint: string) {
   const queryClient = useQueryClient();
-
+  const loggedUser = useSelector(userLoggedIn);
   const fetchAll = async (
     params?: SearchCriteria & Pagination
   ): Promise<T[]> => {
@@ -32,7 +34,11 @@ export function useCrud<T>(endpoint: string) {
       fullUrl += `?${query}`;
     }
 
-    return makeRequest({ method: "GET", url: fullUrl });
+    return makeRequest({
+      method: "GET",
+      url: fullUrl,
+      token: loggedUser.token,
+    });
   };
 
   // κρατάμε state για criteria/pagination εκτός του hook

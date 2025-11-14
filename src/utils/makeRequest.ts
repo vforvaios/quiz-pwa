@@ -1,20 +1,18 @@
 type MakeRequestType = {
+  token?: any;
   method: string;
   url: string;
   body?: any;
   responseFormat?: any;
 };
 
-const configureHeaders = (resFormat: string, isFormData?: boolean) => {
+const configureHeaders = (resFormat: string, token: any) => {
   if (resFormat === "json") {
-    if (!isFormData) {
-      return {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      };
-    } else {
-      return { Accept: "application/json" };
-    }
+    return {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    };
   } else if (resFormat === "blob") {
     return {
       "Content-Type": "application/json",
@@ -28,16 +26,15 @@ const configureHeaders = (resFormat: string, isFormData?: boolean) => {
 };
 
 const makeRequest = ({
+  token,
   method,
   url,
   body = null,
   responseFormat = "json",
 }: MakeRequestType) => {
-  const isFormData = body instanceof FormData;
-
   return fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
     method,
-    headers: configureHeaders(responseFormat, isFormData),
+    headers: configureHeaders(responseFormat, token),
     ...(body && { body }),
   }).then(async (response) => {
     if (!response.ok) {

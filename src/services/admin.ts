@@ -1,9 +1,10 @@
 import makeRequest from "@/utils/makeRequest";
 
-const getAdminCategories = async () => {
+const getAdminCategories = async (token: string) => {
   return makeRequest({
     method: "GET",
     url: `api/admin/categories`,
+    token,
   });
 };
 
