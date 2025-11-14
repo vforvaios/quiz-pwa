@@ -14,17 +14,20 @@ import QuestionForm from "./QuestionForm";
 import { allCategories } from "@/models/selectors/adminSelectors";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
+import { updateQuestion } from "@/services/admin";
 
 const Questions = () => {
   const adminCategories = useSelector(allCategories);
-
+  const loggedUser = useSelector(userLoggedIn);
   const {
-    mutateAsync: updateQuestion,
+    mutateAsync: updateQuestionMutate,
     isPending,
     isSuccess,
   } = useMutation({
     mutationKey: ["update-question"],
-    mutationFn: () => Promise.resolve(),
+    mutationFn: () => updateQuestion(itemToBeCrud, loggedUser.token),
   });
 
   const { fetchAll, remove } = useCrud<any>("api/admin/questions");
@@ -60,8 +63,13 @@ const Questions = () => {
 
   const handleOK = async () => {
     try {
-      await updateQuestion();
-    } catch (error) {}
+      await updateQuestionMutate();
+    } catch (err: any) {
+      enqueueSnackbar(err.toString(), {
+        variant: "error",
+        autoHideDuration: 4000,
+      });
+    }
   };
 
   useEffect(() => {
@@ -71,6 +79,10 @@ const Questions = () => {
   useEffect(() => {
     if (isSuccess) {
       handleClose();
+      enqueueSnackbar("Η ερώτηση ενημερώθηκε επιτυχώς!", {
+        variant: "success",
+        autoHideDuration: 4000,
+      });
     }
   }, [isSuccess]);
 

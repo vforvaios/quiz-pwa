@@ -8,4 +8,13 @@ const getAdminCategories = async (token: string) => {
   });
 };
 
-export { getAdminCategories };
+const updateQuestion = async (item: any, token: string) => {
+  return makeRequest({
+    method: "PUT",
+    url: `api/admin/questions`,
+    token,
+    body: JSON.stringify(item),
+  });
+};
+
+export { getAdminCategories, updateQuestion };
