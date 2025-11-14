@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const QuestionForm = ({ item, setItem }: any) => {
+const QuestionForm = ({ item, setItem, loading }: any) => {
   const adminCategories = useSelector(allCategories);
 
   return (
@@ -17,12 +17,14 @@ const QuestionForm = ({ item, setItem }: any) => {
       <TextField
         w-full
         label="Ερώτηση"
+        disabled={loading}
         value={item.question}
         onChange={(e) => setItem({ ...item, question: e.target.value })}
       />
       <FormControl w-full>
         <InputLabel id="question_category_edit">Κατηγορία</InputLabel>
         <Select
+          disabled={loading}
           labelId="question_category_edit"
           id="question_category_edit"
           value={item.categoryId || ""}

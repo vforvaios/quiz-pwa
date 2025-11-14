@@ -13,9 +13,19 @@ import AdminModal from "../AdminModal";
 import QuestionForm from "./QuestionForm";
 import { allCategories } from "@/models/selectors/adminSelectors";
 import { useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
 
 const Questions = () => {
   const adminCategories = useSelector(allCategories);
+
+  const {
+    mutateAsync: updateQuestion,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationKey: ["update-question"],
+    mutationFn: () => Promise.resolve(),
+  });
 
   const { fetchAll, remove } = useCrud<any>("api/admin/questions");
   const [itemToBeCrud, setItemToBeCrud] = useState<any>(null);
@@ -48,14 +58,37 @@ const Questions = () => {
     setPagination({ ...pagination, page: delta });
   };
 
+  const handleOK = async () => {
+    try {
+      await updateQuestion();
+    } catch (error) {}
+  };
+
   useEffect(() => {
     handleSearch();
   }, [pagination]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      handleClose();
+    }
+  }, [isSuccess]);
+
   return (
     <div className="space-y-6">
-      <AdminModal title="Ενημέρωση ερώτησης" open={open} onClose={handleClose}>
-        <QuestionForm item={itemToBeCrud} setItem={setItemToBeCrud} />
+      <AdminModal
+        handleOK={handleOK}
+        title="Ενημέρωση ερώτησης"
+        buttonLabel="Αποθήκευση"
+        open={open}
+        onClose={handleClose}
+        loading={isPending}
+      >
+        <QuestionForm
+          loading={isPending}
+          item={itemToBeCrud}
+          setItem={setItemToBeCrud}
+        />
       </AdminModal>
       <h1 className="text-xl font-bold">Ερωτήσεις</h1>
 

@@ -10,15 +10,21 @@ import React from "react";
 
 interface ModalProps {
   open: boolean;
+  handleOK: () => void;
   onClose: () => void;
+  loading?: boolean;
   title?: string;
+  buttonLabel?: string;
   children: React.ReactNode;
 }
 
 const AdminModal: React.FC<ModalProps> = ({
   open,
   onClose,
+  handleOK,
   title,
+  loading,
+  buttonLabel,
   children,
 }) => {
   if (!open) return null;
@@ -46,8 +52,15 @@ const AdminModal: React.FC<ModalProps> = ({
       </IconButton>
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onClose}>
-          Save changes
+        <Button
+          autoFocus
+          disabled={loading}
+          loading={loading}
+          variant="contained"
+          sx={{ textTransform: "none" }}
+          onClick={handleOK}
+        >
+          {buttonLabel}
         </Button>
       </DialogActions>
     </Dialog>
