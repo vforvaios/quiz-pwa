@@ -9,6 +9,8 @@ import {
   Typography,
   IconButton,
   Divider,
+  Button,
+  Radio,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -50,7 +52,11 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
       </Box>
 
       <Divider />
-
+      <Box>
+        <Button variant="outlined" sx={{ textTransform: "none" }}>
+          Προσθήκη απάντησης
+        </Button>
+      </Box>
       {/* Answers */}
       {item.answers && (
         <Box display="flex" flexDirection="column" gap={2}>
@@ -66,10 +72,23 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
               gap={1.5}
               width="100%"
             >
+              <Radio
+                checked={Boolean(ans.isCorrect)}
+                onChange={() => {
+                  const updated = item.answers.map((a: any) => ({
+                    ...a,
+                    isCorrect: a.id === ans.id ? 1 : 0,
+                  }));
+                  setItem({ ...item, answers: updated });
+                }}
+              />
               <TextField
                 fullWidth
                 size="small"
                 value={ans.answer}
+                sx={{
+                  background: `${ans.isCorrect ? "var(--green-color)" : "inherit"}`,
+                }}
                 onChange={(e) =>
                   setItem({
                     ...item,
