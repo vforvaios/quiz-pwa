@@ -1,10 +1,12 @@
+import { logoutUser } from "@/models/actions/loginActions";
 import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const loggedUser = useSelector(userLoggedIn);
@@ -106,8 +108,11 @@ const Header = () => {
             </Link>
 
             <Link
-              onClick={() => setOpen(false)}
-              to="/logout"
+              onClick={() => {
+                setOpen(false);
+                dispatch(logoutUser());
+              }}
+              to="/"
               className="text-lg font-bold text-redcolor"
             >
               🚪 Αποσύνδεση

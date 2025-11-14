@@ -4,9 +4,14 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import withToggle from "./withToggle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/models/actions/loginActions";
 
 const Header = ({ toggleValue, setToggleValue }: any) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <>
       <AppBar position="static">
@@ -55,7 +60,13 @@ const Header = ({ toggleValue, setToggleValue }: any) => {
             </Link>
           </li>
           <li>
-            <button onClick={() => {}} className="block hover:underline">
+            <button
+              onClick={() => {
+                dispatch(logoutUser());
+                navigate("/");
+              }}
+              className="block hover:underline"
+            >
               Εξοδος
             </button>
           </li>
