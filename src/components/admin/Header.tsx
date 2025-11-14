@@ -30,19 +30,35 @@ const Header = ({ toggleValue, setToggleValue }: any) => {
         open={toggleValue.left}
         onClose={setToggleValue("left", false)}
       >
-        <ul>
-          <Link to="/" className="block hover:underline">
-            Πίσω στο παιχνίδι
-          </Link>
-          <Link to="/dashboard" className="block hover:underline">
-            Αρχική
-          </Link>
-          <Link to="/dashboard/questions" className="block hover:underline">
-            Ερωτήσεις
-          </Link>
-          <button onClick={() => {}} className="block hover:underline">
-            Εξοδος
-          </button>
+        <ul className="admin-menu">
+          <li>
+            <Link to="/" className="block hover:underline back-to-game">
+              Πίσω στο παιχνίδι
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={setToggleValue("left", false)}
+              to="/dashboard"
+              className="block hover:underline"
+            >
+              Αρχική
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={setToggleValue("left", false)}
+              to="/dashboard/questions"
+              className="block hover:underline"
+            >
+              Ερωτήσεις
+            </Link>
+          </li>
+          <li>
+            <button onClick={() => {}} className="block hover:underline">
+              Εξοδος
+            </button>
+          </li>
         </ul>
       </Drawer>
     </>

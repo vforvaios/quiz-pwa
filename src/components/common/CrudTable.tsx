@@ -68,7 +68,11 @@ export function CrudTable<T extends { id: string | number }>({
                   align="right"
                   className="px-4 py-2 flex gap-2 justify-end"
                 >
-                  {onEdit && <Button onClick={() => onEdit(item)}>Edit</Button>}
+                  {onEdit && (
+                    <Button onClick={() => onEdit(item)}>
+                      <i className="icon-pencil" />
+                    </Button>
+                  )}
                   {onDelete && (
                     <Button onClick={() => onDelete(item)}>
                       <i className="icon-trash-empty" />
