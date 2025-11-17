@@ -1,6 +1,7 @@
 import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import makeRequest from "@/utils/makeRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 import { useSelector } from "react-redux";
 
 export interface Pagination {
@@ -70,7 +71,13 @@ export function useCrud<T>(endpoint: string) {
         token,
       });
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
+    onSuccess: (data) => {
+      enqueueSnackbar(data.message, {
+        variant: "success",
+        autoHideDuration: 4000,
+      });
+      queryClient.invalidateQueries({ queryKey: [endpoint] });
+    },
   });
 
   const remove = useMutation({
@@ -92,6 +99,7 @@ export function useCrud<T>(endpoint: string) {
       createIsPending: create.isPending,
       updateIsPending: update.isPending,
       removeIsPending: remove.isPending,
+      updateIsSuccess: update.isSuccess,
     },
   };
 }

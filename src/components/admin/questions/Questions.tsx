@@ -78,6 +78,8 @@ const Questions = () => {
         variant: "error",
         autoHideDuration: 4000,
       });
+    } finally {
+      setOpen(false);
     }
   };
 
