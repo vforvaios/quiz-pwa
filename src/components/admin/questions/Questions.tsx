@@ -70,7 +70,7 @@ const Questions = () => {
     try {
       await update({
         id: itemToBeCrud.id,
-        item: itemToBeCrud,
+        item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
         token: loggedUser.token,
       });
     } catch (err: any) {
