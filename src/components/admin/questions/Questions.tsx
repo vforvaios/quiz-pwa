@@ -73,6 +73,7 @@ const Questions = () => {
         item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
         token: loggedUser.token,
       });
+      handleSearch();
     } catch (err: any) {
       enqueueSnackbar(err.toString(), {
         variant: "error",
