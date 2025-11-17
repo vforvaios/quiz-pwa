@@ -15,13 +15,4 @@ const getAdminDifficulties = async () => {
   });
 };
 
-const updateQuestion = async (item: any, token: string) => {
-  return makeRequest({
-    method: "PUT",
-    url: `api/admin/questions`,
-    token,
-    body: JSON.stringify(item),
-  });
-};
-
-export { getAdminCategories, getAdminDifficulties, updateQuestion };
+export { getAdminCategories, getAdminDifficulties };

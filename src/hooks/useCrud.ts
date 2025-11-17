@@ -57,14 +57,17 @@ export function useCrud<T>(endpoint: string) {
     mutationFn: async ({
       id,
       item,
+      token,
     }: {
       id: string | number;
       item: Partial<T>;
+      token: string;
     }) => {
       return makeRequest({
         method: "POST",
         url: `${endpoint}/${id}`,
         body: JSON.stringify(item),
+        token,
       });
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
@@ -85,5 +88,10 @@ export function useCrud<T>(endpoint: string) {
     create: create.mutateAsync,
     update: update.mutateAsync,
     remove: remove.mutateAsync,
+    states: {
+      createIsPending: create.isPending,
+      updateIsPending: update.isPending,
+      removeIsPending: remove.isPending,
+    },
   };
 }

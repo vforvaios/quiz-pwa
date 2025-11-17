@@ -13,10 +13,8 @@ import AdminModal from "../AdminModal";
 import QuestionForm from "./QuestionForm";
 import { allCategories } from "@/models/selectors/adminSelectors";
 import { useSelector } from "react-redux";
-import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { userLoggedIn } from "@/models/selectors/loginSelectors";
-import { updateQuestion } from "@/services/admin";
 
 const Questions = () => {
   const initialItemToBeCrud = {
@@ -27,16 +25,10 @@ const Questions = () => {
   };
   const adminCategories = useSelector(allCategories);
   const loggedUser = useSelector(userLoggedIn);
-  const {
-    mutateAsync: updateQuestionMutate,
-    isPending,
-    isSuccess,
-  } = useMutation({
-    mutationKey: ["update-question"],
-    mutationFn: () => updateQuestion(itemToBeCrud, loggedUser.token),
-  });
 
-  const { fetchAll, remove } = useCrud<any>("api/admin/questions");
+  const { fetchAll, remove, update, states } = useCrud<any>(
+    "api/admin/questions"
+  );
   const [itemToBeCrud, setItemToBeCrud] = useState<any>(null);
   const [criteria, setCriteria] = useState<any>({
     question: "",
@@ -74,7 +66,11 @@ const Questions = () => {
 
   const handleOK = async () => {
     try {
-      await updateQuestionMutate();
+      await update({
+        id: itemToBeCrud.id,
+        item: itemToBeCrud,
+        token: loggedUser.token,
+      });
     } catch (err: any) {
       enqueueSnackbar(err.toString(), {
         variant: "error",
@@ -92,16 +88,6 @@ const Questions = () => {
     handleSearch();
   }, [pagination]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      handleClose();
-      enqueueSnackbar("Η ερώτηση ενημερώθηκε επιτυχώς!", {
-        variant: "success",
-        autoHideDuration: 4000,
-      });
-    }
-  }, [isSuccess]);
-
   return (
     <div className="space-y-6">
       <AdminModal
@@ -110,17 +96,28 @@ const Questions = () => {
         buttonLabel="Αποθήκευση"
         open={open}
         onClose={handleClose}
-        loading={isPending}
+        loading={
+          states?.createIsPending ||
+          states?.updateIsPending ||
+          states?.removeIsPending
+        }
         disabledButton={
-          isPending ||
+          states?.createIsPending ||
+          states?.updateIsPending ||
+          states?.removeIsPending ||
           !itemToBeCrud?.question ||
           !itemToBeCrud?.difficultyId ||
           !itemToBeCrud?.categoryId ||
+          itemToBeCrud?.answers?.every((ans: any) => ans.isCorrect === 0) ||
           itemToBeCrud?.answers.length <= 1
         }
       >
         <QuestionForm
-          loading={isPending}
+          loading={
+            states?.createIsPending ||
+            states?.updateIsPending ||
+            states?.removeIsPending
+          }
           item={itemToBeCrud}
           setItem={setItemToBeCrud}
         />
