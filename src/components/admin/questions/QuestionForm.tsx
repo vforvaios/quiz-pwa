@@ -76,7 +76,16 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
 
       <Divider />
       <Box>
-        <Button variant="outlined" sx={{ textTransform: "none" }}>
+        <Button
+          variant="outlined"
+          sx={{ textTransform: "none" }}
+          onClick={() =>
+            setItem({
+              ...item,
+              answers: [...item.answers, { answer: "", isCorrect: 0 }],
+            })
+          }
+        >
           Προσθήκη απάντησης
         </Button>
       </Box>

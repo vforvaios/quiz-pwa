@@ -39,7 +39,7 @@ const makeRequest = ({
   }).then(async (response) => {
     if (!response.ok) {
       return response.json().then((response) => {
-        throw response?.error?.name || response?.message;
+        throw response?.error || response?.message;
       });
     }
 

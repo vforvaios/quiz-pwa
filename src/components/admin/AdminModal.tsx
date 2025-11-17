@@ -16,6 +16,7 @@ interface ModalProps {
   title?: string;
   buttonLabel?: string;
   children: React.ReactNode;
+  disabledButton: boolean;
 }
 
 const AdminModal: React.FC<ModalProps> = ({
@@ -26,6 +27,7 @@ const AdminModal: React.FC<ModalProps> = ({
   loading,
   buttonLabel,
   children,
+  disabledButton,
 }) => {
   if (!open) return null;
 
@@ -54,7 +56,7 @@ const AdminModal: React.FC<ModalProps> = ({
       <DialogActions>
         <Button
           autoFocus
-          disabled={loading}
+          disabled={loading || disabledButton}
           loading={loading}
           variant="contained"
           sx={{ textTransform: "none" }}

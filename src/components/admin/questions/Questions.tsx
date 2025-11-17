@@ -19,6 +19,12 @@ import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import { updateQuestion } from "@/services/admin";
 
 const Questions = () => {
+  const initialItemToBeCrud = {
+    id: null,
+    question: "",
+    difficultyId: null,
+    answers: [],
+  };
   const adminCategories = useSelector(allCategories);
   const loggedUser = useSelector(userLoggedIn);
   const {
@@ -52,6 +58,11 @@ const Questions = () => {
     try {
       const result = await fetchAll({ ...criteria, ...pagination });
       setData(result);
+    } catch (err: any) {
+      enqueueSnackbar(err?.toString(), {
+        variant: "error",
+        autoHideDuration: 4000,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +83,10 @@ const Questions = () => {
     }
   };
 
-  const handleCreateNewQuestion = () => {};
+  const handleCreateNewQuestion = () => {
+    setItemToBeCrud(initialItemToBeCrud);
+    setOpen(true);
+  };
 
   useEffect(() => {
     handleSearch();
@@ -92,11 +106,18 @@ const Questions = () => {
     <div className="space-y-6">
       <AdminModal
         handleOK={handleOK}
-        title="Ενημέρωση ερώτησης"
+        title="Ερώτηση"
         buttonLabel="Αποθήκευση"
         open={open}
         onClose={handleClose}
         loading={isPending}
+        disabledButton={
+          isPending ||
+          !itemToBeCrud?.question ||
+          !itemToBeCrud?.difficultyId ||
+          !itemToBeCrud?.categoryId ||
+          itemToBeCrud?.answers.length <= 1
+        }
       >
         <QuestionForm
           loading={isPending}
