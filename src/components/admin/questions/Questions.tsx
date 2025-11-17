@@ -72,6 +72,8 @@ const Questions = () => {
     }
   };
 
+  const handleCreateNewQuestion = () => {};
+
   useEffect(() => {
     handleSearch();
   }, [pagination]);
@@ -132,7 +134,10 @@ const Questions = () => {
           </Select>
         </FormControl>
         <Button variant="contained" onClick={handleSearch}>
-          Search
+          ΑΝΑΖΗΤΗΣΗ
+        </Button>
+        <Button variant="contained" onClick={handleCreateNewQuestion}>
+          ΠΡΟΣΘΗΚΗ ΕΡΩΤΗΣΗΣ
         </Button>
       </div>
 

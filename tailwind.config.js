@@ -6,6 +6,9 @@ export default {
       colors: {
         blackcolor: "var(--black-color)",
         redcolor: "var(--red-color)",
+        easycolor: "var(--green-color)",
+        mediumcolor: "var(--dark-grey-color)",
+        hardcolor: "var(--red-color)",
         whitecolor: "var(--white-color)",
         lightgreycolor: "var(--light-grey-color)",
         greycolor: "var(--grey-color)",
