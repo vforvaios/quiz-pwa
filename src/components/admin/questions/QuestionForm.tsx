@@ -2,6 +2,7 @@ import {
   allCategories,
   allDifficulties,
 } from "@/models/selectors/adminSelectors";
+import generateUniqueId from "@/utils/generateUniqueId";
 import {
   TextField,
   Box,
@@ -14,6 +15,8 @@ import {
   Divider,
   Button,
   Radio,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -25,6 +28,16 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
     <Box display="flex" flexDirection="column" gap={3} sx={{ mt: 1 }}>
       {/* Question */}
       <Box display="flex" flexDirection="column" gap={2}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={Boolean(item?.isActive)}
+              value={item?.isActive}
+              onChange={(e) => setItem({ ...item, isActive: e.target.checked })}
+            />
+          }
+          label="Ενεργή ερώτηση?"
+        />
         <TextField
           fullWidth
           size="small"
@@ -82,7 +95,10 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
           onClick={() =>
             setItem({
               ...item,
-              answers: [...item.answers, { answer: "", isCorrect: 0 }],
+              answers: [
+                ...item.answers,
+                { id: generateUniqueId(), answer: "", isCorrect: 0 },
+              ],
             })
           }
         >

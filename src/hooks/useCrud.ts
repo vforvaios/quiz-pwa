@@ -64,7 +64,7 @@ export function useCrud<T>(endpoint: string) {
       token: string;
     }) => {
       return makeRequest({
-        method: "POST",
+        method: "PUT",
         url: `${endpoint}/${id}`,
         body: JSON.stringify(item),
         token,

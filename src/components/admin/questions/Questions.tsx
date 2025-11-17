@@ -21,6 +21,8 @@ const Questions = () => {
     id: null,
     question: "",
     difficultyId: null,
+    categoryId: null,
+    isActive: 0,
     answers: [],
   };
   const adminCategories = useSelector(allCategories);
