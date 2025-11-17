@@ -8,6 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "./common/Loader";
 import { enqueueSnackbar } from "notistack";
 import DifficultyModal from "./DifficultyModal";
+import { getAdminDifficulties } from "@/services/admin";
 
 export default function Categories() {
   const queryClient = useQueryClient();
@@ -29,30 +30,47 @@ export default function Categories() {
     retry: false,
   });
 
+  const {
+    data: difficulties,
+    isError: difficultiesIsError,
+    error: difficultiesError,
+    isLoading: difficultiesIsLoading,
+  } = useQuery({
+    queryKey: ["get-difficulties"],
+    queryFn: getAdminDifficulties,
+    enabled: true,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
   useEffect(() => {
-    if (isError) {
-      enqueueSnackbar(error.toString(), {
+    if (isError || difficultiesIsError) {
+      enqueueSnackbar(error?.toString() || difficultiesError?.toString(), {
         variant: "error",
         autoHideDuration: 4000,
       });
     }
-  }, [isError]);
+  }, [isError, difficultiesIsError]);
 
   useEffect(() => {
     return () => {
       queryClient.removeQueries({
         queryKey: ["get-categories"],
       });
+      queryClient.removeQueries({
+        queryKey: ["get-difficulties"],
+      });
     };
   }, [queryClient]);
 
   if (isLoading) {
-    return <Loader show={isLoading} />;
+    return <Loader show={isLoading || difficultiesIsLoading} />;
   }
 
   return (
     <div className="flex flex-col items-center justify-center px-6 text-white">
       <DifficultyModal
+        difficulties={difficulties?.difficulties}
         open={open}
         setOpen={setOpen}
         handleDifficulty={handleDifficulty}

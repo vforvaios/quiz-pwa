@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Modal from "./common/Modal";
 
 export default function DifficultyModal({
+  difficulties,
   open,
   setOpen,
   handleDifficulty,
@@ -81,32 +82,9 @@ export default function DifficultyModal({
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, staggerChildren: 0.1 }}
             >
-              {[
-                {
-                  label: "ΕΥΚΟΛΟ 😌",
-                  color: "bg-greencolor text-whitecolor",
-                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(15,215,105,0.4)]",
-                  value: "1",
-                  emoji: "🌟",
-                },
-                {
-                  label: "ΜΕΤΡΙΟ 😅",
-                  color: "bg-greycolor text-blackcolor",
-                  shadow:
-                    "hover:shadow-[0_8px_20px_-5px_rgba(229,232,226,0.4)]",
-                  value: "2",
-                  emoji: "⚡",
-                },
-                {
-                  label: "ΔΥΣΚΟΛΟ 😈",
-                  color: "bg-redcolor text-whitecolor",
-                  shadow: "hover:shadow-[0_8px_20px_-5px_rgba(198,55,26,0.4)]",
-                  value: "3",
-                  emoji: "💀",
-                },
-              ].map((level, index) => (
+              {difficulties.map((level: any, index: number) => (
                 <motion.div
-                  key={level.value}
+                  key={level.id}
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
@@ -119,7 +97,7 @@ export default function DifficultyModal({
                   className="w-full"
                 >
                   <motion.button
-                    onClick={() => handleDifficulty(level.value)}
+                    onClick={() => handleDifficulty(level.id)}
                     className={`relative w-full px-4 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-lg active:scale-95 ${level.color} ${level.shadow} group overflow-hidden text-sm sm:text-base border-2 border-whitecolor`}
                     whileHover={{
                       boxShadow: "0 10px 25px -5px rgba(0,0,0,0.2)",
@@ -128,7 +106,7 @@ export default function DifficultyModal({
                     {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-whitecolor/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
-                    <span className="relative flex items-center justify-center gap-2">
+                    <span className="relative flex items-center justify-center gap-2 text-blackcolor">
                       <motion.span
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{
@@ -136,11 +114,11 @@ export default function DifficultyModal({
                           repeat: Infinity,
                           delay: index * 0.5,
                         }}
-                        className="text-lg sm:text-xl"
+                        className="text-lg sm:text-xl "
                       >
                         {level.emoji}
                       </motion.span>
-                      {level.label}
+                      {level.difficulty}
                     </span>
                   </motion.button>
                 </motion.div>

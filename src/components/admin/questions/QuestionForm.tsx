@@ -1,4 +1,7 @@
-import { allCategories } from "@/models/selectors/adminSelectors";
+import {
+  allCategories,
+  allDifficulties,
+} from "@/models/selectors/adminSelectors";
 import {
   TextField,
   Box,
@@ -16,6 +19,7 @@ import { useSelector } from "react-redux";
 
 const QuestionForm = ({ item, setItem, loading }: any) => {
   const adminCategories = useSelector(allCategories);
+  const adminDifficulties = useSelector(allDifficulties);
 
   return (
     <Box display="flex" flexDirection="column" gap={3} sx={{ mt: 1 }}>
@@ -45,6 +49,25 @@ const QuestionForm = ({ item, setItem, loading }: any) => {
             {adminCategories?.map((cat: any) => (
               <MenuItem key={cat.id} value={cat.id}>
                 {cat.category_name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth size="small">
+          <InputLabel id="question_difficulty_edit">Δυσκολία</InputLabel>
+          <Select
+            disabled={loading}
+            labelId="question_difficulty_edit"
+            id="question_difficulty_edit"
+            value={item.difficultyId || ""}
+            label="Δυσκολία"
+            onChange={(e) =>
+              setItem({ ...item, difficultyId: e.target.value as any })
+            }
+          >
+            {adminDifficulties?.map((diff: any) => (
+              <MenuItem key={diff.id} value={diff.id}>
+                {diff.difficulty}
               </MenuItem>
             ))}
           </Select>

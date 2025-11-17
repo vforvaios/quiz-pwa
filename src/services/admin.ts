@@ -8,6 +8,13 @@ const getAdminCategories = async (token: string) => {
   });
 };
 
+const getAdminDifficulties = async () => {
+  return makeRequest({
+    method: "GET",
+    url: `api/admin/difficulties`,
+  });
+};
+
 const updateQuestion = async (item: any, token: string) => {
   return makeRequest({
     method: "PUT",
@@ -17,4 +24,4 @@ const updateQuestion = async (item: any, token: string) => {
   });
 };
 
-export { getAdminCategories, updateQuestion };
+export { getAdminCategories, getAdminDifficulties, updateQuestion };
