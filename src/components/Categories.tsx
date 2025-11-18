@@ -63,7 +63,7 @@ export default function Categories() {
     };
   }, [queryClient]);
 
-  if (isLoading) {
+  if (isLoading || difficultiesIsLoading) {
     return <Loader show={isLoading || difficultiesIsLoading} />;
   }
 
