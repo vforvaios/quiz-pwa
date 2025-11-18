@@ -63,9 +63,9 @@ export default function Categories() {
     };
   }, [queryClient]);
 
-  if (isLoading) {
-    return <Loader show={isLoading || difficultiesIsLoading} />;
+  if (isLoading || difficultiesIsLoading) {
   }
+  return <Loader show={true} />;
 
   return (
     <div className="flex flex-col items-center justify-center px-6 text-white">
