@@ -1,16 +1,22 @@
 import makeRequest from "@/utils/makeRequest";
 
-export async function getCategories() {
+const getCategories = () => {
   return makeRequest({ method: "GET", url: "api/categories" });
-}
+};
 
-export async function getQuestions(
-  categoryId: number,
-  difficulty: string,
-  amount = 5
-) {
+const getQuestions = (categoryId: number, difficulty: string, amount = 5) => {
   return makeRequest({
     method: "GET",
     url: `api/questions?difficulty=${difficulty}&category=${categoryId}&amount=${amount}`,
   });
-}
+};
+
+const saveScore = ({ score, difficulty, category, userId }: any) => {
+  return makeRequest({
+    method: "POST",
+    url: `api/save-score`,
+    body: JSON.stringify({ score, difficulty, category, userId }),
+  });
+};
+
+export { getCategories, getQuestions, saveScore };

@@ -3,12 +3,50 @@ import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 import FacebookShareButton from "./common/FacebookShareButton";
 import { amountOfQuestions } from "@/constants";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
+import { useMutation } from "@tanstack/react-query";
+import { saveScore } from "@/services/triviaAPI";
+import { enqueueSnackbar } from "notistack";
+import {
+  selectedCategory,
+  selectedDifficulty,
+} from "@/models/selectors/categoriesSelectors";
 
 export default function Results() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const loggedUser = useSelector(userLoggedIn);
+  const category = useSelector(selectedCategory);
+  const difficulty = useSelector(selectedDifficulty);
   const score = state?.score || 0;
   const total = state?.total || amountOfQuestions;
+
+  const { mutateAsync: setScoreByUserAndCategory } = useMutation({
+    mutationKey: ["set-score-by-user-and-category"],
+    mutationFn: () =>
+      saveScore({ userId: loggedUser?.userId, score, category, difficulty }),
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
+  const handleSaveScore = async () => {
+    try {
+      await setScoreByUserAndCategory();
+    } catch (error: any) {
+      enqueueSnackbar(error.toString(), {
+        variant: "error",
+        autoHideDuration: 4000,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (loggedUser?.token) {
+      handleSaveScore();
+    }
+  }, [loggedUser?.token]);
 
   return (
     <>
