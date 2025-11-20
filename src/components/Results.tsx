@@ -26,7 +26,13 @@ export default function Results() {
   const { mutateAsync: setScoreByUserAndCategory } = useMutation({
     mutationKey: ["set-score-by-user-and-category"],
     mutationFn: () =>
-      saveScore({ userId: loggedUser?.userId, score, category, difficulty }),
+      saveScore({
+        token: loggedUser?.token,
+        userId: loggedUser?.userId,
+        score,
+        category,
+        difficulty,
+      }),
     onSuccess: () => {},
     onError: () => {},
   });

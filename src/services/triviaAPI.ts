@@ -11,11 +11,12 @@ const getQuestions = (categoryId: number, difficulty: string, amount = 5) => {
   });
 };
 
-const saveScore = ({ score, difficulty, category, userId }: any) => {
+const saveScore = ({ token, score, difficulty, category, userId }: any) => {
   return makeRequest({
     method: "POST",
-    url: `api/save-score`,
+    url: `api/game/save-score`,
     body: JSON.stringify({ score, difficulty, category, userId }),
+    token,
   });
 };
 
