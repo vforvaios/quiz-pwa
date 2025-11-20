@@ -4,7 +4,7 @@ import Confetti from "react-confetti";
 import FacebookShareButton from "./common/FacebookShareButton";
 import { amountOfQuestions } from "@/constants";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import { useMutation } from "@tanstack/react-query";
 import { saveScore } from "@/services/triviaAPI";
@@ -13,8 +13,10 @@ import {
   selectedCategory,
   selectedDifficulty,
 } from "@/models/selectors/categoriesSelectors";
+import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
 
 export default function Results() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
   const loggedUser = useSelector(userLoggedIn);
@@ -40,6 +42,8 @@ export default function Results() {
   const handleSaveScore = async () => {
     try {
       await setScoreByUserAndCategory();
+      dispatch(setCategory(null));
+      dispatch(setDifficulty(null));
     } catch (error: any) {
       enqueueSnackbar(error.toString(), {
         variant: "error",
@@ -49,10 +53,16 @@ export default function Results() {
   };
 
   useEffect(() => {
-    if (loggedUser?.token) {
+    if (loggedUser?.token && category && difficulty) {
       handleSaveScore();
     }
   }, [loggedUser?.token]);
+
+  useEffect(() => {
+    if (!category || !difficulty) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
