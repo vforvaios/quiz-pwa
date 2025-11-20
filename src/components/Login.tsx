@@ -59,9 +59,7 @@ export const Login = () => {
         variant: "success",
         autoHideDuration: 4000,
       });
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+      navigate("/");
     }
   }, [loginUserIsSuccess]);
 

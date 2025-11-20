@@ -1,33 +1,43 @@
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
+import { getLeaderBoard } from "@/services/triviaAPI";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-// 🎮 Example player data (replace with real data later)
-const players = [
-  { name: "Alice", score: 980 },
-  { name: "Bob", score: 870 },
-  { name: "Charlie", score: 820 },
-  { name: "Diana", score: 780 },
-  { name: "Ethan", score: 720 },
-  { name: "Fiona", score: 690 },
-  { name: "George", score: 640 },
-  { name: "You", score: 760 }, // 👈 current player
-];
+import Loader from "./common/Loader";
+import { enqueueSnackbar } from "notistack";
+import { ErrorFallback } from "./common/ErrorFallback";
 
 const LeaderBoard = () => {
   const navigate = useNavigate();
+  const loggedUser = useSelector(userLoggedIn);
 
-  // Sort players by score (highest first)
-  const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-  const maxScore = sortedPlayers[0].score;
+  const {
+    data: leaderBoardData,
+    isFetching,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["leader-board"],
+    queryFn: () => getLeaderBoard(loggedUser?.userId, loggedUser.token),
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
-  // Find current player’s rank
-  const currentPlayer = players.find((p) => p.name === "You");
-  const yourRank =
-    sortedPlayers.findIndex((p) => p.name === currentPlayer?.name) + 1;
+  const me = leaderBoardData?.leaderBoard?.find((p: any) => p.me);
+  const maxScore = Number(leaderBoardData?.leaderBoard?.[0]?.totalScore);
 
-  const yourAvatar = `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(
-    currentPlayer?.name as string
-  )}`;
+  if (isFetching) {
+    return <Loader show={isFetching} />;
+  }
+
+  if (isError) {
+    enqueueSnackbar(error?.toString(), {
+      variant: "error",
+      autoHideDuration: 4000,
+    });
+    return <ErrorFallback />;
+  }
 
   return (
     <div className=" flex flex-col items-center px-6 text-white">
@@ -51,13 +61,13 @@ const LeaderBoard = () => {
         {/* Header Row */}
         <div className="grid grid-cols-[0.8fr_2.5fr_1fr] text-sm font-semibold text-white/70 border-b border-white/20 pb-2 mb-4">
           <span className="text-left">Θέση</span>
-          <span className="text-center">Παίχτης</span>
+          <span className="text-left">Παίχτης</span>
           <span className="text-right">Σκορ</span>
         </div>
 
         {/* Player Rows */}
-        {sortedPlayers.map((player, index) => {
-          const barWidth = (player.score / maxScore) * 100;
+        {leaderBoardData?.leaderBoard?.map((player: any, index: number) => {
+          const barWidth = (Number(player.totalScore) / maxScore) * 100;
           const avatarUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(
             player.name
           )}`;
@@ -101,7 +111,7 @@ const LeaderBoard = () => {
               <span className="z-10 text-left font-semibold">#{index + 1}</span>
 
               {/* Player + Avatar */}
-              <div className="z-10 flex items-center justify-center gap-3">
+              <div className="z-10 flex items-center justify-start gap-3">
                 <img
                   src={avatarUrl}
                   alt={`${player.name}'s avatar`}
@@ -112,7 +122,7 @@ const LeaderBoard = () => {
 
               {/* Score */}
               <span className="z-10 text-right font-semibold">
-                {player.score}
+                {Number(player.totalScore)}
               </span>
             </motion.div>
           );
@@ -128,14 +138,16 @@ const LeaderBoard = () => {
       >
         <div className="flex flex-col items-center space-y-3">
           <img
-            src={yourAvatar}
+            src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(
+              me?.name
+            )}`}
             alt="Your avatar"
             className="w-16 h-16 rounded-full border-2 border-white/40"
           />
           <h3 className="text-xl font-bold">Εσύ</h3>
-          <p className="text-white/80">Θέση #{yourRank}</p>
+          <p className="text-white/80">Θέση #{me?.rank}</p>
           <p className="text-lg font-semibold text-white">
-            Σκορ: {currentPlayer?.score}
+            Σκορ: {me?.totalScore}
           </p>
         </div>
       </motion.div>

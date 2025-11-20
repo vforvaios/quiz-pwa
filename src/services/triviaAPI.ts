@@ -28,4 +28,18 @@ const getUserProfile = (userId: string, token: string) => {
   });
 };
 
-export { getCategories, getQuestions, saveScore, getUserProfile };
+const getLeaderBoard = (userId: string, token: string) => {
+  return makeRequest({
+    method: "GET",
+    url: `api/game/leaderboard/${userId}`,
+    token,
+  });
+};
+
+export {
+  getCategories,
+  getQuestions,
+  saveScore,
+  getLeaderBoard,
+  getUserProfile,
+};
