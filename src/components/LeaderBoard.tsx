@@ -24,7 +24,6 @@ const LeaderBoard = () => {
     refetchOnWindowFocus: false,
   });
 
-  const me = leaderBoardData?.leaderBoard?.find((p: any) => p.me);
   const maxScore = Number(leaderBoardData?.leaderBoard?.[0]?.totalScore);
 
   if (isFetching) {
@@ -139,15 +138,17 @@ const LeaderBoard = () => {
         <div className="flex flex-col items-center space-y-3">
           <img
             src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(
-              me?.name
+              leaderBoardData?.myRanking?.name
             )}`}
             alt="Your avatar"
             className="w-16 h-16 rounded-full border-2 border-white/40"
           />
-          <h3 className="text-xl font-bold">Εσύ</h3>
-          <p className="text-white/80">Θέση #{me?.rank}</p>
-          <p className="text-lg font-semibold text-white">
-            Σκορ: {me?.totalScore}
+          <h3 className="text-xl font-bold">ΕΓΩ</h3>
+          <p className="text-white/80 text-2xl">
+            Θέση #{leaderBoardData?.myRanking?.rank}
+          </p>
+          <p className="text-lg font-semibold text-white text-lg">
+            Σκορ: {leaderBoardData?.myRanking?.totalScore}
           </p>
         </div>
       </motion.div>
