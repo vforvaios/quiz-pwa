@@ -108,7 +108,7 @@ export default function Game() {
   const answers = [...q?.incorrect_answers, q?.correct_answer].sort();
 
   return (
-    <div className=" flex flex-col items-center justify-center px-6  text-white">
+    <div className=" flex flex-col items-center justify-center px-2  text-white">
       {/* Progress Bar */}
       <div className="w-full max-w-2xl h-3 bg-lightgreycolor rounded-full mb-8">
         <div

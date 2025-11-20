@@ -64,7 +64,7 @@ export const Login = () => {
   }, [loginUserIsSuccess]);
 
   return (
-    <div className="flex flex-col items-center px-6">
+    <div className="flex flex-col items-center px-2">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

@@ -68,7 +68,7 @@ export default function Categories() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 text-white">
+    <div className="flex flex-col items-center justify-center px-2 text-white">
       <DifficultyModal
         difficulties={difficulties?.difficulties}
         open={open}

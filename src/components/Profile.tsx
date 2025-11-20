@@ -29,7 +29,6 @@ const Profile = () => {
   // TEMP EXAMPLE DATA
   const user = {
     avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Alex",
-    rank: 12,
   };
 
   if (isFetching) {
@@ -45,7 +44,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen py-8 px-6 text-white">
+    <div className="min-h-screen py-8 px-2 text-white">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -76,7 +75,7 @@ const Profile = () => {
             <p className="text-xl font-bold">
               {userProfile?.profile?.totalGames}
             </p>
-            <p className="text-xs text-greycolor">Παιχνίδια</p>
+            <p className="text-greycolor text-md md:text-lg">Παιχνίδια</p>
           </div>
 
           <div className="bg-white/5 rounded-xl p-3 text-center border border-white/5">
@@ -84,13 +83,13 @@ const Profile = () => {
             <p className="text-xl font-bold">
               {userProfile?.profile?.totalScore}
             </p>
-            <p className="text-xs text-greycolor">Σκορ</p>
+            <p className="text-greycolor text-md md:text-lg">Σκορ</p>
           </div>
 
           <div className="bg-white/5 rounded-xl p-3 text-center border border-white/5">
             <div className="text-blue-400 text-lg mb-1">📊</div>
-            <p className="text-xl font-bold">#{user.rank}</p>
-            <p className="text-xs text-greycolor">Θέση</p>
+            <p className="text-xl font-bold">#{userProfile?.profile?.rank}</p>
+            <p className="text-greycolor text-md md:text-lg">Θέση</p>
           </div>
         </div>
 

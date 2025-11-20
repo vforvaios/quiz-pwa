@@ -66,7 +66,7 @@ export default function Results() {
 
   return (
     <>
-      <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-6 py-10 relative text-white">
+      <div className="min-h-[calc(100vh-80px)] justify-center  flex items-center px-2 py-10 relative text-white">
         {/* Confetti */}
         <Confetti width={window.innerWidth} height={window.innerHeight} />
 
