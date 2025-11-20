@@ -20,4 +20,12 @@ const saveScore = ({ token, score, difficulty, category, userId }: any) => {
   });
 };
 
-export { getCategories, getQuestions, saveScore };
+const getUserProfile = (userId: string, token: string) => {
+  return makeRequest({
+    method: "GET",
+    url: `api/game/profile/${userId}`,
+    token,
+  });
+};
+
+export { getCategories, getQuestions, saveScore, getUserProfile };

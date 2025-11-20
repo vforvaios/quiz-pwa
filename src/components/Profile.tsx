@@ -1,18 +1,41 @@
+import { logoutUser } from "@/models/actions/loginActions";
+import { userLoggedIn } from "@/models/selectors/loginSelectors";
+import { getUserProfile } from "@/services/triviaAPI";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ErrorFallback } from "./common/ErrorFallback";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loggedUser = useSelector(userLoggedIn);
+
+  const {
+    data: userProfile,
+    isSuccess,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: () => getUserProfile(loggedUser.userId, loggedUser.token),
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   // TEMP EXAMPLE DATA — replace with real user state
   const user = {
     name: "Alex Player",
-    email: "alex@example.com",
     avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Alex",
     gamesPlayed: 42,
     highScore: 18700,
     rank: 12,
   };
+
+  if (isError) {
+    return <ErrorFallback />;
+  }
 
   return (
     <div className="justify-center flex items-center px-6 text-white">
@@ -32,22 +55,28 @@ const Profile = () => {
         />
 
         {/* Name */}
-        <h2 className="text-3xl font-bold text-center mt-4">{user.name}</h2>
-        <p className="text-blackcolor/60 text-center">{user.email}</p>
+        <h2 className="text-3xl font-bold text-center mt-4">
+          {userProfile?.profile?.name}
+        </h2>
+        <p className="text-blackcolor/60 text-center">{loggedUser.email}</p>
 
         {/* Stats Section */}
         <div className="grid grid-cols-3 gap-4 mt-8 text-center">
           <div className="p-3 bg-white/10 rounded-xl">
-            <p className="text-2xl font-bold">{user.gamesPlayed}</p>
-            <p className="text-xs text-black/70">Παιχνίδα</p>
+            <p className="text-2xl font-bold">
+              {userProfile?.profile?.totalGames}
+            </p>
+            <p className="text-xs text-whitecolor">Παιχνίδα</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
-            <p className="text-2xl font-bold">{user.highScore}</p>
-            <p className="text-xs text-black/70">Ψηλότερο Σκορ</p>
+            <p className="text-2xl font-bold">
+              {userProfile?.profile?.totalScore}
+            </p>
+            <p className="text-xs text-whitecolor">Γενικό Σκορ</p>
           </div>
           <div className="p-3 bg-white/10 rounded-xl">
             <p className="text-2xl font-bold">#{user.rank}</p>
-            <p className="text-xs text-black/70">Γενική Θέση</p>
+            <p className="text-xs text-whitecolor">Γενική Θέση</p>
           </div>
         </div>
 
@@ -62,7 +91,7 @@ const Profile = () => {
 
           <button
             onClick={() => navigate("/categories")}
-            className="w-full border-2 border-white text-darkgreycolor bg-redcolor font-semibold py-3 rounded-xl hover:bg-whitecolor hover:text-blackcolor transition-all"
+            className="w-full border-2 border-white text-whitecolor bg-redcolor font-semibold py-3 rounded-xl hover:bg-whitecolor hover:text-redcolor transition-all"
           >
             Παίξε ξανά
           </button>
@@ -70,8 +99,7 @@ const Profile = () => {
           <button
             className="w-full bg-redcolor/80 text-white font-semibold py-3 rounded-xl hover:bg-redcolor transition-all"
             onClick={() => {
-              // TODO: clear auth cookie / redux / context
-              navigate("/login");
+              dispatch(logoutUser());
             }}
           >
             Αποσύνδεση
