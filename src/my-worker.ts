@@ -13,7 +13,6 @@ self.addEventListener("install", () => {
 // ✅ Activation phase
 self.addEventListener("activate", (event) => {
   console.log("Hi Vaios service worker");
-
   event.waitUntil(
     caches
       .keys()
