@@ -15,6 +15,13 @@ import App from "./App";
 import store from "./store";
 let persistor = persistStore(store);
 
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") {
+    console.log("APP resumed");
+    window.location.reload();
+  }
+});
+
 createRoot(document.getElementById("root") as HTMLElement).render(
   // <StrictMode>
   <Provider store={store}>
