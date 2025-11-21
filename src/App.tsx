@@ -22,14 +22,47 @@ import Dashboard from "./components/admin/Dashboard";
 import { userLoggedIn } from "./models/selectors/loginSelectors";
 import Questions from "./components/admin/questions/Questions";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import UpdatePrompt from "./components/UpdatePrompt";
+import { usePWAUpdate } from "./hooks/usePWAUpdate";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const loading = useSelector(isLoading);
   const loggedUser = useSelector(userLoggedIn);
   const queryClient = new QueryClient();
 
+  const { showReload, updateServiceWorker, isUpdating } = usePWAUpdate();
+  const [localShowReload, setLocalShowReload] = useState(false);
+
+  useEffect(() => {
+    // Έλεγξε αν έχουμε ήδη δείξει το prompt σε αυτό το session
+    const hasShownPrompt = sessionStorage.getItem("updatePromptShown");
+
+    if (showReload && !hasShownPrompt) {
+      setLocalShowReload(true);
+      sessionStorage.setItem("updatePromptShown", "true");
+    }
+  }, [showReload]);
+
+  const handleUpdate = () => {
+    updateServiceWorker();
+    setLocalShowReload(false);
+    sessionStorage.removeItem("updatePromptShown");
+  };
+
+  const handleCancel = () => {
+    setLocalShowReload(false);
+    // Το prompt θα εμφανιστεί ξανά μόνο μετά από refresh ή σε νέα session
+  };
+
   return (
     <HelmetProvider>
+      <UpdatePrompt
+        show={localShowReload}
+        onUpdate={handleUpdate}
+        onCancel={handleCancel}
+        isUpdating={isUpdating}
+      />
       <SnackbarProvider />
       <QueryClientProvider client={queryClient}>
         <Loader show={loading} />

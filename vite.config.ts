@@ -20,7 +20,7 @@ export default defineConfig({
       srcDir: "src",
       filename: "my-worker.ts",
       strategies: "injectManifest",
-      registerType: "autoUpdate",
+      registerType: "prompt",
       injectManifest: {
         minify: false,
         enableWorkboxModulesLogs: true,
@@ -72,7 +72,7 @@ export default defineConfig({
       },
       workbox: {
         clientsClaim: true,
-        skipWaiting: true,
+        skipWaiting: false,
         runtimeCaching: [],
         globPatterns: [],
       },
