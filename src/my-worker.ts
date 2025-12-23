@@ -5,12 +5,6 @@ declare let self: ServiceWorkerGlobalScope;
 
 import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
 
-// Clean outdated caches
-cleanupOutdatedCaches();
-
-// Skip precaching
-precacheAndRoute(self.__WB_MANIFEST.filter(() => false));
-
 // Απλός installation
 self.addEventListener("install", (event) => {
   console.log("Service worker installed");
@@ -19,8 +13,14 @@ self.addEventListener("install", (event) => {
 
 // Απλός activation
 self.addEventListener("activate", (event) => {
-  console.log("Service worker activated");
-  event.waitUntil(self.clients.claim());
+  console.log("Hi Vaios service worker");
+  event.waitUntil(
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(cacheNames.map((cache) => caches.delete(cache)))
+      )
+  );
 });
 
 // Μόνο για skip waiting από το prompt
@@ -29,3 +29,12 @@ self.addEventListener("message", (event: ExtendableMessageEvent) => {
     self.skipWaiting();
   }
 });
+
+// ✅ Precache (disabled in your case — but kept for reference)
+precacheAndRoute(self.__WB_MANIFEST.filter(() => false));
+
+// ✅ Clean outdated caches
+cleanupOutdatedCaches();
+
+// ✅ Offline navigation (if you want SPA fallback)
+// registerRoute(new NavigationRoute(createHandlerBoundToURL("index.html")));
