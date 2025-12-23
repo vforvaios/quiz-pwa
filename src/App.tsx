@@ -22,6 +22,8 @@ import Dashboard from "./components/admin/Dashboard";
 import { userLoggedIn } from "./models/selectors/loginSelectors";
 import Questions from "./components/admin/questions/Questions";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import Lobby from "./components/Lobby";
+import JoinRoom from "./components/JoinRoom";
 
 const App = () => {
   const loading = useSelector(isLoading);
@@ -40,6 +42,8 @@ const App = () => {
               <Route element={<PublicLayout user={loggedUser} />}>
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/lobby/:roomId" element={<Lobby />} />
+                <Route path="/join/:roomId" element={<JoinRoom />} />
                 <Route path="/results" element={<Results />} />
 
                 <Route

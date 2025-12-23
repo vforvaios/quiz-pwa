@@ -4,6 +4,8 @@ import PlayButton from "./common/PlayButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoggedIn } from "@/models/selectors/loginSelectors";
 import { logoutUser } from "@/models/actions/loginActions";
+import PairPlayButton from "./common/PairPlayButton";
+import { setGameMode } from "@/models/actions/gameActions";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -44,6 +46,12 @@ export default function Home() {
         {/* Start Quiz */}
 
         <PlayButton onClick={() => navigate("/categories")} />
+        <PairPlayButton
+          onClick={() => {
+            dispatch(setGameMode("pair"));
+            navigate("/categories?mode=pair");
+          }}
+        />
         {loggedUser?.isAdmin ? (
           <button
             onClick={() => navigate("/dashboard")}

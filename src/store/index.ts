@@ -1,5 +1,6 @@
 import loginReducer from "@/models/reducers/loginReducer";
 import categoriesReducer from "@/models/reducers/categoriesReducer";
+import gameReducer from "@/models/reducers/gameReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
@@ -19,6 +20,7 @@ const persistedReducer = persistReducer(
     loginReducer,
     categoriesReducer,
     loaderReducer,
+    gameReducer,
   })
 );
 

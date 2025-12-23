@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/triviaAPI";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setDifficulty } from "@/models/actions/categoriesActions";
 import { motion } from "framer-motion";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,17 +9,28 @@ import Loader from "./common/Loader";
 import { enqueueSnackbar } from "notistack";
 import DifficultyModal from "./DifficultyModal";
 import { getAdminDifficulties } from "@/services/admin";
+import { gameMode } from "@/models/selectors/gameSelectors";
 
 export default function Categories() {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const modeOfGame = useSelector(gameMode);
 
   const [open, setOpen] = useState<boolean>(false);
 
   const handleDifficulty = (difficulty: string) => {
     dispatch(setDifficulty(difficulty));
-    navigate("/game");
+
+    if (modeOfGame === "pair") {
+      // TODO
+      // const room = await createPairRoom(); // API
+      // navigate(`/lobby/${room.id}`);
+      // const room = await createPairRoom(); // API
+      navigate(`/lobby/3`);
+    } else {
+      navigate("/game");
+    }
   };
 
   const { data, isError, error, isLoading } = useQuery({
