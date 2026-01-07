@@ -38,6 +38,7 @@ const Questions = () => {
   });
 
   const [open, setOpen] = useState<boolean>(false);
+  const [confirmationOpen, setConfirmationOpen] = useState<boolean>(false);
   const [pagination, setPagination] = useState({
     page: 1,
   });
@@ -46,6 +47,7 @@ const Questions = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setConfirmationOpen(false);
   };
   const handleSearch = async () => {
     setIsLoading(true);
@@ -68,11 +70,20 @@ const Questions = () => {
 
   const handleOK = async () => {
     try {
-      await update({
-        id: itemToBeCrud.id,
-        item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
-        token: loggedUser.token,
-      });
+      if (open) {
+        await update({
+          id: itemToBeCrud.id,
+          item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
+          token: loggedUser.token,
+        });
+      }
+      if (confirmationOpen) {
+        await remove({
+          id: itemToBeCrud.id,
+          item: itemToBeCrud,
+          token: loggedUser.token,
+        });
+      }
       handleSearch();
     } catch (err: any) {
       enqueueSnackbar(err.toString(), {
@@ -81,6 +92,7 @@ const Questions = () => {
       });
     } finally {
       setOpen(false);
+      setConfirmationOpen(false);
     }
   };
 
@@ -98,8 +110,8 @@ const Questions = () => {
       <AdminModal
         handleOK={handleOK}
         title="Ερώτηση"
-        buttonLabel="Αποθήκευση"
-        open={open}
+        buttonLabel={open ? "Αποθήκευση" : "Διαγραφή"}
+        open={open || confirmationOpen}
         onClose={handleClose}
         loading={
           states?.createIsPending ||
@@ -117,15 +129,19 @@ const Questions = () => {
           itemToBeCrud?.answers.length <= 1
         }
       >
-        <QuestionForm
-          loading={
-            states?.createIsPending ||
-            states?.updateIsPending ||
-            states?.removeIsPending
-          }
-          item={itemToBeCrud}
-          setItem={setItemToBeCrud}
-        />
+        {open ? (
+          <QuestionForm
+            loading={
+              states?.createIsPending ||
+              states?.updateIsPending ||
+              states?.removeIsPending
+            }
+            item={itemToBeCrud}
+            setItem={setItemToBeCrud}
+          />
+        ) : (
+          "Είστε σίγουροι για την διαγραφή της ερώτησης;"
+        )}
       </AdminModal>
       <h1 className="text-xl font-bold">Ερωτήσεις</h1>
 
@@ -175,7 +191,10 @@ const Questions = () => {
             { key: "id", label: "ID" },
             { key: "question", label: "Ερώτηση" },
           ]}
-          onDelete={(u) => remove(u.id)}
+          onDelete={(u) => {
+            setItemToBeCrud(u);
+            setConfirmationOpen(true);
+          }}
           onEdit={(item) => {
             setItemToBeCrud(item);
             setOpen(true);

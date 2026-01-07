@@ -81,10 +81,20 @@ export function useCrud<T>(endpoint: string) {
   });
 
   const remove = useMutation({
-    mutationFn: async (id: string | number) => {
+    mutationFn: async ({
+      id,
+      item,
+      token,
+    }: {
+      id: string | number;
+      item: Partial<T>;
+      token: string;
+    }) => {
       return makeRequest({
         method: "DELETE",
         url: `${endpoint}/${id}`,
+        body: JSON.stringify(item),
+        token,
       });
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),
