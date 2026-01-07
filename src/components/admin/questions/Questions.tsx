@@ -71,17 +71,23 @@ const Questions = () => {
   const handleOK = async () => {
     try {
       if (open) {
-        await update({
-          id: itemToBeCrud.id,
-          item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
-          token: loggedUser.token,
-        });
+        if (itemToBeCrud.id) {
+          await update({
+            id: itemToBeCrud.id,
+            item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
+            token: loggedUser.token,
+          });
+        }
       }
       if (confirmationOpen) {
-        await remove({
+        const deleteResponse = await remove({
           id: itemToBeCrud.id,
           item: itemToBeCrud,
           token: loggedUser.token,
+        });
+        enqueueSnackbar(deleteResponse.message, {
+          variant: "success",
+          autoHideDuration: 4000,
         });
       }
       handleSearch();
@@ -183,7 +189,7 @@ const Questions = () => {
       {/* Table */}
       {isLoading ? (
         <p>Loading...</p>
-      ) : (
+      ) : data?.questions?.length ? (
         <CrudTable
           data={data?.questions}
           count={data?.total || 0}
@@ -202,6 +208,8 @@ const Questions = () => {
           pagination={pagination}
           handlePageChange={handlePageChange}
         />
+      ) : (
+        <h2>Κανένα αποτέλεσμα</h2>
       )}
     </div>
   );
