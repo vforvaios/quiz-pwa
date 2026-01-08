@@ -44,11 +44,18 @@ export function useCrud<T>(endpoint: string) {
 
   // κρατάμε state για criteria/pagination εκτός του hook
   const create = useMutation({
-    mutationFn: async (item: Partial<T>) => {
+    mutationFn: async ({
+      item,
+      token,
+    }: {
+      item: Partial<T>;
+      token: string;
+    }) => {
       return makeRequest({
         method: "POST",
         url: endpoint,
         body: JSON.stringify(item),
+        token,
       });
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [endpoint] }),

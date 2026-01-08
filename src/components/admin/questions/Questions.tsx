@@ -28,7 +28,7 @@ const Questions = () => {
   const adminCategories = useSelector(allCategories);
   const loggedUser = useSelector(userLoggedIn);
 
-  const { fetchAll, remove, update, states } = useCrud<any>(
+  const { fetchAll, remove, update, create, states } = useCrud<any>(
     "api/admin/questions"
   );
   const [itemToBeCrud, setItemToBeCrud] = useState<any>(null);
@@ -76,6 +76,15 @@ const Questions = () => {
             id: itemToBeCrud.id,
             item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
             token: loggedUser.token,
+          });
+        } else {
+          const createResponse = await create({
+            item: { ...itemToBeCrud, isActive: Number(itemToBeCrud.isActive) },
+            token: loggedUser.token,
+          });
+          enqueueSnackbar(createResponse.message, {
+            variant: "success",
+            autoHideDuration: 4000,
           });
         }
       }
