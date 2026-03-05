@@ -24,11 +24,21 @@ import Questions from "./components/admin/questions/Questions";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Lobby from "./components/Lobby";
 import JoinRoom from "./components/JoinRoom";
+import socket from "./socket";
+import { useEffect } from "react";
 
 const App = () => {
   const loading = useSelector(isLoading);
   const loggedUser = useSelector(userLoggedIn);
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    socket.emit("join");
+
+    socket.on("user-joined", () => {
+      console.log("User has joined");
+    });
+  }, []);
 
   return (
     <HelmetProvider>
