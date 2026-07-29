@@ -1,4 +1,4 @@
-const amountOfQuestions: number = 5;
+const amountOfQuestions: number = 10;
 const recordsPerPage: number = 12;
 
 // TO BE REFACTORED DYNAMICALLY
